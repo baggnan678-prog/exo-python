@@ -23,6 +23,6 @@ print(tableau)
 print (f"la plus petite valeur est {b}")
 print(f"la plus grande valeur est {c}")
 print(f"Le nombre de {d} est de {n}")
-print(f"Les valeurs inférieur à 10 sont {tableau2[::-1]}")
+print(f"Les valeurs inférieur à 10 sont {tableau2[::-1]} et la somme est {sum(tableau2)}")
 tableau3= [q for q in tableau if q%2==0]
-print(f"Les nombre paire du tableau sont {tableau3}")
+print(f"Les nombre paire du tableau sont {tableau3} et leurs somme est {sum(tableau3)}")

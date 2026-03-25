@@ -8,4 +8,3 @@ if facture>1000 :
     print(f"Félicitation vous bénéficier d'une remise de 1% , votre facture est donc de {factur} au lieu de {facture}")
 else:
     print(f"Malheureusement vous passer à coté d'une belle réduction , si votre facture était supérieur à 1.000f vous l'aurier eu . Vous nous devez donc {facture}")
-p

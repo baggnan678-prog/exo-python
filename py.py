@@ -12,6 +12,9 @@ for i in range(taille):
       p=i
       print(f"l'indice du premier {d} est de {p}")
    
+tableau2 = [z for z in tableau if z < 10]
+# .sort sert à ordonné le tableau et tt ce qui est l'intérieur des crochet du tableau2 est une condition d'ajout au tableau , z est une variable utiliser pour fixer cette condition
+tableau2.sort()
 
 
 b = min(tableau)
@@ -20,3 +23,4 @@ print(tableau)
 print (f"la plus petite valeur est {b}")
 print(f"la plus grande valeur est {c}")
 print(f"Le nombre de {d} est de {n}")
+print(f"Les note inférieur à 10 sont {tableau2[::-1]}")

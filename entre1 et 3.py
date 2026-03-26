@@ -1,3 +1,6 @@
+#code pour jouer à un choix aléatoire d'un nombre compris entre 1 et 3
+
+
 b=0
 a=float(input("Veuiller entre une valeur ( il existe 3 bonne réponse et vous avez 9 vies) : "))
 i=1

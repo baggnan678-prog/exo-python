@@ -1,3 +1,5 @@
+#code pour souscrire à une assurance et proposer différent tarif
+
 entree=input("Etes vous assurer chez nous depuis plus de 1 ans :")
 if entree=="oui" or entree=="Oui" :
     print("Merci de votre fidélité , comme preuve de remerciement nous vous offront le tarif bleu ")

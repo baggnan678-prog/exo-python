@@ -1,3 +1,5 @@
+#code pour jouer à un choix aléatoire d'un nombre compris entre 1 et 3
+
 a=float(input("Veuiller entre une valeur ( il existe 3 bonne réponse) :"))
 if a<=3 and a>=1 :
     print("Bravooo")

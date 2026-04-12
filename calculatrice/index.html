@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CalcSci — Calculatrice Scientifique</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>CALCSCI</h1>
+      <p>CALCULATRICE SCIENTIFIQUE · UTM BURKINA FASO</p>
+    </header>
+
+    <main class="calculator">
+      <!-- ── Onglets ── -->
+      <nav class="tabs">
+        <button class="tab-btn active" data-tab="tab-calc">CALCUL</button>
+        <button class="tab-btn" data-tab="tab-matrix">MATRICES</button>
+        <button class="tab-btn" data-tab="tab-stats">STATISTIQUES</button>
+      </nav>
+
+      <!-- ══════════════════════════════════════
+         ONGLET 1 — CALCULATRICE STANDARD
+         ══════════════════════════════════════ -->
+      <section id="tab-calc" class="tab-panel active">
+        <!-- Écran -->
+        <div class="display">
+          <div class="display-input" id="display-input"></div>
+          <div class="display-result" id="display-result">0</div>
+        </div>
+
+        <!-- Sélecteur DEG / RAD -->
+        <div class="mode-toggle">
+          <span class="mode-label">MODE</span>
+          <button class="mode-btn active" data-mode="deg">DEG</button>
+          <button class="mode-btn" data-mode="rad">RAD</button>
+        </div>
+
+        <!-- Grille de boutons (5 colonnes) -->
+        <div class="btn-grid calc-grid">
+          <!-- Ligne 1 : fonctions scientifiques -->
+          <button class="btn btn-func calc-key" data-value="sin(">sin</button>
+          <button class="btn btn-func calc-key" data-value="cos(">cos</button>
+          <button class="btn btn-func calc-key" data-value="tan(">tan</button>
+          <button class="btn btn-func calc-key" data-value="log(">log</button>
+          <button class="btn btn-func calc-key" data-value="ln(">ln</button>
+
+          <!-- Ligne 2 : fonctions avancées -->
+          <button class="btn btn-func calc-key" data-value="asin(">asin</button>
+          <button class="btn btn-func calc-key" data-value="acos(">acos</button>
+          <button class="btn btn-func calc-key" data-value="atan(">atan</button>
+          <button class="btn btn-func calc-key" data-value="sqrt(">√</button>
+          <button class="btn btn-func calc-key" data-value="factorial(">
+            n!
+          </button>
+
+          <!-- Ligne 3 : constantes, puissances, effacement -->
+          <button class="btn btn-func calc-key" data-value="pi">π</button>
+          <button class="btn btn-func calc-key" data-value="e">e</button>
+          <button class="btn btn-func calc-key" data-value="^">x^y</button>
+          <button class="btn btn-clear calc-key" data-value="C">C</button>
+          <button class="btn btn-clear calc-key" data-value="⌫">⌫</button>
+
+          <!-- Ligne 4 : chiffres 7-8-9 et opérateurs -->
+          <button class="btn calc-key" data-value="7">7</button>
+          <button class="btn calc-key" data-value="8">8</button>
+          <button class="btn calc-key" data-value="9">9</button>
+          <button class="btn btn-op calc-key" data-value="/">/</button>
+          <button class="btn btn-op calc-key" data-value="%">%</button>
+
+          <!-- Ligne 5 : chiffres 4-5-6 -->
+          <button class="btn calc-key" data-value="4">4</button>
+          <button class="btn calc-key" data-value="5">5</button>
+          <button class="btn calc-key" data-value="6">6</button>
+          <button class="btn btn-op calc-key" data-value="*">×</button>
+          <button class="btn btn-func calc-key" data-value="abs(">|x|</button>
+
+          <!-- Ligne 6 : chiffres 1-2-3 -->
+          <button class="btn calc-key" data-value="1">1</button>
+          <button class="btn calc-key" data-value="2">2</button>
+          <button class="btn calc-key" data-value="3">3</button>
+          <button class="btn btn-op calc-key" data-value="-">−</button>
+          <button class="btn btn-op calc-key" data-value="(">(</button>
+
+          <!-- Ligne 7 : 0, point, égal -->
+          <button class="btn calc-key" data-value="0">0</button>
+          <button class="btn calc-key" data-value=".">.</button>
+          <button class="btn btn-eq calc-key btn-wide" data-value="=">=</button>
+          <button class="btn btn-op calc-key" data-value="+">+</button>
+          <button class="btn btn-op calc-key" data-value=")">)</button>
+        </div>
+
+        <!-- Historique -->
+        <div class="history-section">
+          <div class="history-title">▸ HISTORIQUE</div>
+          <div class="history-list" id="history-list"></div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+         ONGLET 2 — MATRICES
+         ══════════════════════════════════════ -->
+      <section id="tab-matrix" class="tab-panel">
+        <!-- Matrice A -->
+        <div class="matrix-section">
+          <div class="section-title">MATRICE A</div>
+          <div class="matrix-size-select">
+            <label for="size-a">Taille :</label>
+            <select id="size-a">
+              <option value="2" selected>2 × 2</option>
+              <option value="3">3 × 3</option>
+              <option value="4">4 × 4</option>
+            </select>
+          </div>
+          <div class="matrix-input-grid" id="matrix-a-grid"></div>
+        </div>
+
+        <!-- Matrice B -->
+        <div class="matrix-section">
+          <div class="section-title">
+            MATRICE B
+            <span style="font-size: 0.5rem; color: var(--text-muted)"
+              >(Addition / Multiplication)</span
+            >
+          </div>
+          <div class="matrix-size-select">
+            <label for="size-b">Taille :</label>
+            <select id="size-b">
+              <option value="2" selected>2 × 2</option>
+              <option value="3">3 × 3</option>
+              <option value="4">4 × 4</option>
+            </select>
+          </div>
+          <div class="matrix-input-grid" id="matrix-b-grid"></div>
+        </div>
+
+        <!-- Boutons d'opérations -->
+        <div class="section-title">OPÉRATIONS</div>
+        <div class="btn-grid matrix-grid">
+          <button class="btn btn-func matrix-op-btn" data-op="add">
+            A + B
+          </button>
+          <button class="btn btn-func matrix-op-btn" data-op="multiply">
+            A · B
+          </button>
+          <button class="btn btn-func matrix-op-btn" data-op="transpose">
+            Aᵀ
+          </button>
+          <button class="btn btn-func matrix-op-btn" data-op="det">
+            det(A)
+          </button>
+          <button class="btn btn-func matrix-op-btn" data-op="inverse">
+            A⁻¹
+          </button>
+        </div>
+
+        <!-- Résultat matriciel -->
+        <div class="matrix-result-display" id="matrix-result">—</div>
+      </section>
+
+      <!-- ══════════════════════════════════════
+         ONGLET 3 — STATISTIQUES
+         ══════════════════════════════════════ -->
+      <section id="tab-stats" class="tab-panel">
+        <div class="section-title">JEUX DE DONNÉES</div>
+
+        <div class="stats-input-area">
+          <label for="stats-input"
+            >Entrez vos valeurs (séparées par espace, virgule ou retour à la
+            ligne) :</label
+          >
+          <textarea
+            id="stats-input"
+            placeholder="Ex: 4, 8, 15, 16, 23, 42"
+          ></textarea>
+        </div>
+
+        <div class="btn-grid stats-grid">
+          <button class="btn btn-eq btn-wide" id="btn-stats-calc">
+            CALCULER
+          </button>
+        </div>
+
+        <!-- Tableau de résultats -->
+        <div class="stats-results" id="stats-results"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>CALCSCI v1.0 · PYTHON / FLASK · GÉNIE LOGICIEL UTM</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

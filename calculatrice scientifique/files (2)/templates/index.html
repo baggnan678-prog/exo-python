@@ -36,7 +36,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Grid background */
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -48,7 +47,6 @@ body::before {
   z-index: 0;
 }
 
-/* Scanlines */
 body::after {
   content: '';
   position: fixed; inset: 0;
@@ -61,7 +59,6 @@ body::after {
 
 .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 20px; }
 
-/* HEADER */
 header {
   text-align: center;
   padding: 30px 20px 20px;
@@ -85,12 +82,10 @@ header::before {
   background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: none;
   filter: drop-shadow(0 0 20px rgba(0,245,255,0.4));
 }
 .tagline { color: var(--muted); font-size: 0.85rem; letter-spacing: 6px; margin-top: 4px; text-transform: uppercase; }
 
-/* TABS */
 .tabs {
   display: flex; gap: 4px; margin-bottom: 20px;
   border: 1px solid var(--border);
@@ -99,14 +94,14 @@ header::before {
   flex-wrap: wrap;
 }
 .tab-btn {
-  flex: 1; min-width: 120px;
-  padding: 10px 16px;
+  flex: 1; min-width: 110px;
+  padding: 10px 12px;
   background: transparent;
   border: 1px solid transparent;
   border-radius: 7px;
   color: var(--muted);
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
@@ -121,11 +116,9 @@ header::before {
   box-shadow: var(--glow);
 }
 
-/* PANELS */
 .panel { display: none; }
 .panel.active { display: block; }
 
-/* CARD */
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -150,7 +143,6 @@ header::before {
   text-transform: uppercase;
 }
 
-/* CALCULATOR DISPLAY */
 .calc-display {
   background: #020210;
   border: 1px solid var(--border);
@@ -161,28 +153,10 @@ header::before {
   min-height: 90px;
   position: relative;
 }
-.display-expr {
-  font-size: 1rem;
-  color: var(--muted);
-  min-height: 22px;
-  word-break: break-all;
-}
-.display-result {
-  font-size: 2.2rem;
-  color: var(--cyan);
-  text-shadow: 0 0 15px rgba(0,245,255,0.5);
-  text-align: right;
-  min-height: 50px;
-  word-break: break-all;
-}
-.display-symbolic {
-  font-size: 0.75rem;
-  color: var(--purple);
-  text-align: right;
-  margin-top: 4px;
-}
+.display-expr { font-size: 1rem; color: var(--muted); min-height: 22px; word-break: break-all; }
+.display-result { font-size: 2.2rem; color: var(--cyan); text-shadow: 0 0 15px rgba(0,245,255,0.5); text-align: right; min-height: 50px; word-break: break-all; }
+.display-symbolic { font-size: 0.75rem; color: var(--purple); text-align: right; margin-top: 4px; }
 
-/* BUTTON GRID */
 .btn-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
 .btn-grid-4 { grid-template-columns: repeat(4, 1fr); }
 .btn-grid-6 { grid-template-columns: repeat(6, 1fr); }
@@ -212,7 +186,6 @@ header::before {
 .btn-span2 { grid-column: span 2; }
 .btn-span3 { grid-column: span 3; }
 
-/* INPUTS */
 input[type="text"], input[type="number"], textarea, select {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -253,8 +226,8 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
 .action-btn:hover { background: linear-gradient(135deg, rgba(0,245,255,0.25), rgba(199,125,255,0.25)); box-shadow: var(--glow); }
 .action-btn.pink { border-color: var(--pink); color: var(--pink); background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(255,107,157,0.05)); }
 .action-btn.pink:hover { box-shadow: var(--glow-pink); }
+.action-btn.gold { border-color: var(--gold); color: var(--gold); background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05)); }
 
-/* RESULT DISPLAY */
 .result-box {
   background: #020210;
   border: 1px solid var(--border);
@@ -268,10 +241,8 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
 .result-item { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(30,30,62,0.8); font-size: 0.85rem; }
 .result-item:last-child { border-bottom: none; }
 .result-label { color: var(--muted); }
-.result-value { color: var(--cyan); font-weight: bold; }
+.result-value { color: var(--cyan); font-weight: bold; word-break: break-all; text-align: right; max-width: 60%; }
 
-/* MATRIX */
-.matrix-input { font-family: 'Share Tech Mono', monospace; }
 .matrix-grid { display: inline-grid; gap: 4px; }
 .matrix-cell {
   width: 70px; padding: 7px;
@@ -282,10 +253,8 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
 }
 .matrix-cell:focus { border-color: var(--cyan); }
 
-/* IMAGE RESULT */
 .plot-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 12px; }
 
-/* STATS GRID */
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 12px; }
 .stat-card {
   background: var(--bg3);
@@ -295,9 +264,8 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
   text-align: center;
 }
 .stat-name { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
-.stat-val { font-size: 1.2rem; color: var(--cyan); font-family: 'Share Tech Mono', monospace; margin-top: 4px; }
+.stat-val { font-size: 1.1rem; color: var(--cyan); font-family: 'Share Tech Mono', monospace; margin-top: 4px; word-break: break-all; }
 
-/* MATRIX RESULT TABLE */
 .mat-table { border-collapse: collapse; margin-top: 8px; }
 .mat-table td {
   border: 1px solid var(--border);
@@ -309,20 +277,6 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
   background: var(--bg3);
 }
 
-/* CALCULUS RESULT */
-.latex-result {
-  font-size: 1.5rem;
-  color: var(--gold);
-  text-align: center;
-  padding: 16px;
-  background: var(--bg3);
-  border-radius: 8px;
-  margin-top: 10px;
-  min-height: 60px;
-  overflow-x: auto;
-}
-
-/* HISTORY */
 .history-list { max-height: 300px; overflow-y: auto; }
 .history-item {
   padding: 8px 12px;
@@ -335,7 +289,6 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
 .hist-expr { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--muted); }
 .hist-result { font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; color: var(--cyan); }
 
-/* LOADING */
 .loading { display: none; text-align: center; padding: 20px; color: var(--muted); }
 .spinner {
   width: 30px; height: 30px; border: 2px solid var(--border);
@@ -344,18 +297,16 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* SCROLLBAR */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg2); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
-/* RESPONSIVE */
 @media (max-width: 700px) {
   .logo { font-size: 1.6rem; }
   .btn-grid { grid-template-columns: repeat(4, 1fr); }
   .form-row, .form-row-3 { grid-template-columns: 1fr; }
-  .tab-btn { min-width: 80px; font-size: 0.75rem; padding: 8px 10px; }
+  .tab-btn { min-width: 70px; font-size: 0.72rem; padding: 7px 8px; }
 }
 
 .section-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
@@ -363,6 +314,43 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
 .badge { padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; letter-spacing: 1px; font-family: 'Share Tech Mono', monospace; }
 .badge-cyan { background: rgba(0,245,255,0.1); border: 1px solid rgba(0,245,255,0.3); color: var(--cyan); }
 .badge-pink { background: rgba(255,107,157,0.1); border: 1px solid rgba(255,107,157,0.3); color: var(--pink); }
+
+/* Conversion table */
+.conv-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.conv-table tr { border-bottom: 1px solid var(--border); }
+.conv-table tr:hover { background: rgba(0,245,255,0.03); }
+.conv-table td { padding: 10px 12px; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; vertical-align: top; }
+.conv-label { color: var(--muted); font-size: 0.75rem; width: 35%; }
+.conv-value { color: var(--cyan); word-break: break-all; }
+.conv-copy-btn {
+  background: rgba(0,245,255,0.05);
+  border: 1px solid rgba(0,245,255,0.2);
+  border-radius: 4px;
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.conv-copy-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+
+/* Base selector pills */
+.base-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.base-pill {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg3);
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.base-pill:hover { border-color: var(--cyan); color: var(--cyan); }
+.base-pill.active { border-color: var(--gold); color: var(--gold); background: rgba(255,215,0,0.07); }
 </style>
 </head>
 <body>
@@ -372,14 +360,15 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
     <div class="tagline">Calculatrice Scientifique Avancée &nbsp;·&nbsp; Python · NumPy · SymPy · SciPy</div>
   </header>
 
-  <!-- TABS -->
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('calc')">⌨ Calculatrice</button>
-    <button class="tab-btn" onclick="switchTab('plot')">📈 Fonctions</button>
-    <button class="tab-btn" onclick="switchTab('matrix')">⊞ Matrices</button>
-    <button class="tab-btn" onclick="switchTab('stats')">📊 Statistiques</button>
-    <button class="tab-btn" onclick="switchTab('proba')">🎲 Probabilités</button>
-    <button class="tab-btn" onclick="switchTab('calculus')">∫ Analyse</button>
+    <button class="tab-btn active" onclick="switchTab('calc', this)">⌨ Calculatrice</button>
+    <button class="tab-btn" onclick="switchTab('plot', this)">📈 Fonctions</button>
+    <button class="tab-btn" onclick="switchTab('matrix', this)">⊞ Matrices</button>
+    <button class="tab-btn" onclick="switchTab('matplot', this)">🎨 Tracé Matrice</button>
+    <button class="tab-btn" onclick="switchTab('stats', this)">📊 Statistiques</button>
+    <button class="tab-btn" onclick="switchTab('proba', this)">🎲 Probabilités</button>
+    <button class="tab-btn" onclick="switchTab('calculus', this)">∫ Analyse</button>
+    <button class="tab-btn" onclick="switchTab('convert', this)">⇄ Conversion</button>
   </div>
 
   <!-- ═══════════════════ CALCULATRICE ═══════════════════ -->
@@ -392,7 +381,6 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
         <div class="display-symbolic" id="disp-sym"></div>
       </div>
 
-      <!-- SCIENTIFIC BUTTONS -->
       <div class="btn-grid btn-grid-6" style="margin-bottom:8px;">
         <button class="calc-btn btn-purple" onclick="ins('sin(')">sin</button>
         <button class="calc-btn btn-purple" onclick="ins('cos(')">cos</button>
@@ -419,42 +407,34 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
         <button class="calc-btn btn-gold" onclick="ins('floor(')">⌊x⌋</button>
         <button class="calc-btn btn-gold" onclick="ins('gcd(')">gcd</button>
       </div>
-
       <hr class="section-divider">
-
-      <!-- MAIN BUTTONS -->
       <div class="btn-grid btn-grid-5">
         <button class="calc-btn btn-pink" onclick="clearAll()">AC</button>
         <button class="calc-btn btn-pink" onclick="backspace()">⌫</button>
         <button class="calc-btn" onclick="ins('(')">  (  </button>
         <button class="calc-btn" onclick="ins(')')">  )  </button>
         <button class="calc-btn btn-orange" onclick="ins('/')">&divide;</button>
-
         <button class="calc-btn" onclick="ins('7')">7</button>
         <button class="calc-btn" onclick="ins('8')">8</button>
         <button class="calc-btn" onclick="ins('9')">9</button>
         <button class="calc-btn" onclick="ins('**')">yˣ</button>
         <button class="calc-btn btn-orange" onclick="ins('*')">&times;</button>
-
         <button class="calc-btn" onclick="ins('4')">4</button>
         <button class="calc-btn" onclick="ins('5')">5</button>
         <button class="calc-btn" onclick="ins('6')">6</button>
         <button class="calc-btn" onclick="ins('%')">mod</button>
         <button class="calc-btn btn-orange" onclick="ins('-')">&minus;</button>
-
         <button class="calc-btn" onclick="ins('1')">1</button>
         <button class="calc-btn" onclick="ins('2')">2</button>
         <button class="calc-btn" onclick="ins('3')">3</button>
         <button class="calc-btn" onclick="ins('1/')">1/x</button>
         <button class="calc-btn btn-orange" onclick="ins('+')">+</button>
-
         <button class="calc-btn btn-span2" onclick="ins('0')">0</button>
         <button class="calc-btn" onclick="ins('.')">.</button>
         <button class="calc-btn btn-cyan" onclick="ins(',')"> , </button>
-        <button class="calc-btn btn-cyan btn-span1" onclick="calculate()" style="background:linear-gradient(135deg,rgba(0,245,255,0.2),rgba(199,125,255,0.2));border-color:var(--cyan);color:var(--cyan);font-size:1.2rem;">=</button>
+        <button class="calc-btn btn-cyan" onclick="calculate()" style="background:linear-gradient(135deg,rgba(0,245,255,0.2),rgba(199,125,255,0.2));border-color:var(--cyan);color:var(--cyan);font-size:1.2rem;">=</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">Historique</div>
       <div class="history-list" id="history-list">
@@ -486,24 +466,14 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
         <button class="calc-btn btn-pink" onclick="removeFunc()">− Supprimer</button>
       </div>
       <div class="form-row form-row-3">
-        <div class="form-group">
-          <label>x min</label>
-          <input type="number" id="xmin" value="-10">
-        </div>
-        <div class="form-group">
-          <label>x max</label>
-          <input type="number" id="xmax" value="10">
-        </div>
-        <div class="form-group">
-          <label>Points</label>
-          <input type="number" id="npoints" value="1000">
-        </div>
+        <div class="form-group"><label>x min</label><input type="number" id="xmin" value="-10"></div>
+        <div class="form-group"><label>x max</label><input type="number" id="xmax" value="10"></div>
+        <div class="form-group"><label>Points</label><input type="number" id="npoints" value="1000"></div>
       </div>
       <button class="action-btn" onclick="plotFunction()">📈 Tracer</button>
       <div class="loading" id="plot-loading"><div class="spinner"></div>Génération du graphique…</div>
       <img id="plot-img" class="plot-img" style="display:none">
     </div>
-
     <div class="card">
       <div class="card-title">Fonctions Prédéfinies</div>
       <div class="btn-grid btn-grid-4" style="gap:8px;">
@@ -528,17 +498,10 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
     <div class="card">
       <div class="card-title">Configuration de la Matrice A</div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Lignes</label>
-          <input type="number" id="mat-rows" value="3" min="1" max="10" onchange="buildMatrix()">
-        </div>
-        <div class="form-group">
-          <label>Colonnes</label>
-          <input type="number" id="mat-cols" value="3" min="1" max="10" onchange="buildMatrix()">
-        </div>
+        <div class="form-group"><label>Lignes</label><input type="number" id="mat-rows" value="3" min="1" max="10" onchange="buildMatrix()"></div>
+        <div class="form-group"><label>Colonnes</label><input type="number" id="mat-cols" value="3" min="1" max="10" onchange="buildMatrix()"></div>
       </div>
       <div id="matrix-A-container" style="overflow-x:auto;margin-bottom:12px;"></div>
-
       <div class="form-group">
         <label>Opération</label>
         <select id="mat-op" onchange="toggleMatB()">
@@ -554,33 +517,22 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
           <option value="power">A^n</option>
         </select>
       </div>
-
       <div id="mat-power-wrap" style="display:none" class="form-group">
-        <label>n (puissance)</label>
-        <input type="number" id="mat-power-n" value="2">
+        <label>n (puissance)</label><input type="number" id="mat-power-n" value="2">
       </div>
-
       <div id="mat-B-section" style="display:none">
         <hr class="section-divider">
         <div class="card-title" style="margin-bottom:12px;">Matrice B</div>
         <div class="form-row">
-          <div class="form-group">
-            <label>Lignes B</label>
-            <input type="number" id="matB-rows" value="3" min="1" max="10" onchange="buildMatrixB()">
-          </div>
-          <div class="form-group">
-            <label>Colonnes B</label>
-            <input type="number" id="matB-cols" value="3" min="1" max="10" onchange="buildMatrixB()">
-          </div>
+          <div class="form-group"><label>Lignes B</label><input type="number" id="matB-rows" value="3" min="1" max="10" onchange="buildMatrixB()"></div>
+          <div class="form-group"><label>Colonnes B</label><input type="number" id="matB-cols" value="3" min="1" max="10" onchange="buildMatrixB()"></div>
         </div>
         <div id="matrix-B-container" style="overflow-x:auto;margin-bottom:12px;"></div>
       </div>
-
       <button class="action-btn" onclick="matrixCalc()">⊞ Calculer</button>
       <div class="loading" id="mat-loading"><div class="spinner"></div>Calcul en cours…</div>
       <div id="mat-result" class="result-box" style="display:none;margin-top:12px;"></div>
     </div>
-
     <div class="card">
       <div class="card-title">Matrices Prédéfinies</div>
       <div class="btn-grid btn-grid-4">
@@ -592,6 +544,46 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
     </div>
   </div>
 
+  <!-- ═══════════════════ TRACÉ MATRICE ═══════════════════ -->
+  <div id="panel-matplot" class="panel">
+    <div class="card">
+      <div class="card-title">Visualisation de Matrice</div>
+      <div class="form-row">
+        <div class="form-group"><label>Lignes</label><input type="number" id="mp-rows" value="4" min="1" max="12" onchange="buildMpMatrix()"></div>
+        <div class="form-group"><label>Colonnes</label><input type="number" id="mp-cols" value="4" min="1" max="12" onchange="buildMpMatrix()"></div>
+      </div>
+      <div id="mp-matrix-container" style="overflow-x:auto;margin-bottom:16px;"></div>
+
+      <div class="form-group">
+        <label>Type de visualisation</label>
+        <select id="mp-plot-type">
+          <option value="heatmap">🌡 Carte de chaleur (Heatmap)</option>
+          <option value="eigenvalues">⚡ Spectre des valeurs propres (plan complexe)</option>
+          <option value="svd_bar">📊 Valeurs singulières &amp; variance expliquée</option>
+          <option value="surface">🏔 Surface 3D</option>
+        </select>
+      </div>
+
+      <div class="card-title" style="margin-top:12px;">Matrices rapides</div>
+      <div class="btn-grid btn-grid-4" style="margin-bottom:12px;">
+        <button class="calc-btn btn-cyan" onclick="loadMpPreset('identity4')">I₄</button>
+        <button class="calc-btn btn-purple" onclick="loadMpPreset('random4')">Aléatoire 4×4</button>
+        <button class="calc-btn btn-gold" onclick="loadMpPreset('magic4')">Magique 4×4</button>
+        <button class="calc-btn btn-green" onclick="loadMpPreset('hilbert4')">Hilbert 4×4</button>
+        <button class="calc-btn btn-pink" onclick="loadMpPreset('laplacian')">Laplacien 4×4</button>
+        <button class="calc-btn btn-orange" onclick="loadMpPreset('toeplitz')">Toeplitz 4×4</button>
+        <button class="calc-btn btn-cyan" onclick="loadMpPreset('circulant')">Circulante 4×4</button>
+        <button class="calc-btn btn-purple" onclick="loadMpPreset('rotation')">Rotation 4×4</button>
+      </div>
+
+      <button class="action-btn" onclick="runMatrixPlot()">🎨 Visualiser</button>
+      <div class="loading" id="mp-loading"><div class="spinner"></div>Génération du graphique…</div>
+      <img id="mp-img" class="plot-img" style="display:none">
+
+      <div id="mp-info" style="display:none;margin-top:12px;"></div>
+    </div>
+  </div>
+
   <!-- ═══════════════════ STATS ═══════════════════ -->
   <div id="panel-stats" class="panel">
     <div class="card">
@@ -600,7 +592,6 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
         <label>Jeu de données (séparés par virgule ou espace)</label>
         <textarea id="stat-data" placeholder="ex: 12, 15, 8, 23, 19, 7, 14, 11, 16, 20"></textarea>
       </div>
-
       <div class="form-group">
         <label>Analyse</label>
         <select id="stat-op">
@@ -614,27 +605,15 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
           <option value="regression">Régression Linéaire</option>
         </select>
       </div>
-
       <div id="stat-extra" style="display:none">
-        <div class="form-group">
-          <label>Données 2 (pour test t deux échantillons / corrélation / régression)</label>
-          <textarea id="stat-data2" placeholder="ex: 10, 14, 9, 22, 17"></textarea>
-        </div>
+        <div class="form-group"><label>Données 2</label><textarea id="stat-data2" placeholder="ex: 10, 14, 9, 22, 17"></textarea></div>
       </div>
-      <div id="stat-mu-wrap" style="display:none" class="form-group">
-        <label>Valeur hypothétique μ₀</label>
-        <input type="number" id="stat-mu" value="0">
-      </div>
-      <div id="stat-conf-wrap" style="display:none" class="form-group">
-        <label>Niveau de confiance (0–1)</label>
-        <input type="number" id="stat-conf" value="0.95" min="0" max="1" step="0.01">
-      </div>
-
+      <div id="stat-mu-wrap" style="display:none" class="form-group"><label>Valeur hypothétique μ₀</label><input type="number" id="stat-mu" value="0"></div>
+      <div id="stat-conf-wrap" style="display:none" class="form-group"><label>Niveau de confiance (0–1)</label><input type="number" id="stat-conf" value="0.95" min="0" max="1" step="0.01"></div>
       <button class="action-btn" onclick="runStats()">📊 Analyser</button>
       <div class="loading" id="stats-loading"><div class="spinner"></div>Analyse statistique…</div>
       <div id="stats-result" style="margin-top:12px;"></div>
     </div>
-
     <div class="card">
       <div class="card-title">Jeux de données rapides</div>
       <div class="btn-grid btn-grid-4">
@@ -682,28 +661,19 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
           </select>
         </div>
       </div>
-
       <div id="prob-params-container" class="form-row form-row-3"></div>
-
-      <div class="form-group" id="prob-x-wrap">
-        <label>x</label>
-        <input type="number" id="prob-x" value="0" step="0.1">
-      </div>
-
+      <div class="form-group" id="prob-x-wrap"><label>x</label><input type="number" id="prob-x" value="0" step="0.1"></div>
       <button class="action-btn" onclick="runProba()">🎲 Calculer</button>
       <div class="loading" id="proba-loading"><div class="spinner"></div>Calcul probabiliste…</div>
       <div id="proba-result" style="margin-top:12px;"></div>
     </div>
   </div>
 
-  <!-- ═══════════════════ ANALYSE / CALCULUS ═══════════════════ -->
+  <!-- ═══════════════════ ANALYSE ═══════════════════ -->
   <div id="panel-calculus" class="panel">
     <div class="card">
       <div class="card-title">Analyse Mathématique (SymPy)</div>
-      <div class="form-group">
-        <label>Expression f(x)</label>
-        <input type="text" id="calc-expr" value="sin(x)*exp(-x/2)" placeholder="ex: x**3 - 2*x + 1">
-      </div>
+      <div class="form-group"><label>Expression f(x)</label><input type="text" id="calc-expr" value="sin(x)*exp(-x/2)" placeholder="ex: x**3 - 2*x + 1"></div>
       <div class="form-row">
         <div class="form-group">
           <label>Opération</label>
@@ -718,54 +688,24 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
             <option value="expand">Développer</option>
           </select>
         </div>
-        <div class="form-group" id="calc-n-wrap">
-          <label>Ordre n</label>
-          <input type="number" id="calc-n" value="1" min="1">
-        </div>
+        <div class="form-group" id="calc-n-wrap"><label>Ordre n</label><input type="number" id="calc-n" value="1" min="1"></div>
       </div>
-
       <div class="form-row" id="calc-int-wrap" style="display:none">
-        <div class="form-group">
-          <label>Borne a (laisser vide = indéfinie)</label>
-          <input type="text" id="calc-a" placeholder="ex: 0 ou -oo">
-        </div>
-        <div class="form-group">
-          <label>Borne b</label>
-          <input type="text" id="calc-b" placeholder="ex: pi ou oo">
-        </div>
+        <div class="form-group"><label>Borne a (laisser vide = indéfinie)</label><input type="text" id="calc-a" placeholder="ex: 0 ou -oo"></div>
+        <div class="form-group"><label>Borne b</label><input type="text" id="calc-b" placeholder="ex: pi ou oo"></div>
       </div>
-
       <div class="form-row" id="calc-lim-wrap" style="display:none">
-        <div class="form-group">
-          <label>x → point</label>
-          <input type="text" id="calc-point" value="0" placeholder="ex: 0, oo, pi">
-        </div>
-        <div class="form-group">
-          <label>Direction</label>
-          <select id="calc-dir">
-            <option value="+-">Bilatérale</option>
-            <option value="right">Droite (+)</option>
-            <option value="left">Gauche (−)</option>
-          </select>
-        </div>
+        <div class="form-group"><label>x → point</label><input type="text" id="calc-point" value="0" placeholder="ex: 0, oo, pi"></div>
+        <div class="form-group"><label>Direction</label><select id="calc-dir"><option value="+-">Bilatérale</option><option value="right">Droite (+)</option><option value="left">Gauche (−)</option></select></div>
       </div>
-
       <div class="form-row" id="calc-series-wrap" style="display:none">
-        <div class="form-group">
-          <label>Autour de x =</label>
-          <input type="text" id="calc-series-point" value="0">
-        </div>
-        <div class="form-group">
-          <label>Ordre</label>
-          <input type="number" id="calc-series-n" value="6" min="1">
-        </div>
+        <div class="form-group"><label>Autour de x =</label><input type="text" id="calc-series-point" value="0"></div>
+        <div class="form-group"><label>Ordre</label><input type="number" id="calc-series-n" value="6" min="1"></div>
       </div>
-
       <button class="action-btn" onclick="runCalculus()">∫ Calculer</button>
       <div class="loading" id="calculus-loading"><div class="spinner"></div>Calcul symbolique…</div>
       <div id="calculus-result" style="margin-top:12px;"></div>
     </div>
-
     <div class="card">
       <div class="card-title">Exemples Rapides</div>
       <div class="btn-grid btn-grid-4">
@@ -780,52 +720,132 @@ label { font-size: 0.8rem; color: var(--muted); letter-spacing: 1px; display: bl
       </div>
     </div>
   </div>
+
+  <!-- ═══════════════════ CONVERSION ═══════════════════ -->
+  <div id="panel-convert" class="panel">
+    <div class="card">
+      <div class="card-title">⇄ Convertisseur de Bases Numériques</div>
+
+      <div class="form-group">
+        <label>Type de conversion</label>
+        <select id="conv-type" onchange="updateConvUI()">
+          <option value="number">Nombre → Toutes les bases</option>
+          <option value="text">Texte / Phrase → Encodages</option>
+          <option value="ascii_to_text">Codes ASCII (décimaux) → Texte</option>
+          <option value="hex_to_text">Hexadécimal → Texte</option>
+          <option value="bin_to_text">Binaire → Texte</option>
+          <option value="float_ieee754">Flottant → IEEE 754</option>
+        </select>
+      </div>
+
+      <!-- Base source (pour nombres) -->
+      <div id="conv-base-section" class="form-group">
+        <label>Base source</label>
+        <div class="base-pills" id="base-pills">
+          <button class="base-pill active" data-base="decimal" onclick="selectBase(this)">Décimal (10)</button>
+          <button class="base-pill" data-base="binary" onclick="selectBase(this)">Binaire (2)</button>
+          <button class="base-pill" data-base="octal" onclick="selectBase(this)">Octal (8)</button>
+          <button class="base-pill" data-base="hexadecimal" onclick="selectBase(this)">Hexadécimal (16)</button>
+          <button class="base-pill" data-base="base32" onclick="selectBase(this)">Base 32</button>
+          <button class="base-pill" data-base="base36" onclick="selectBase(this)">Base 36</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label id="conv-input-label">Valeur à convertir</label>
+        <input type="text" id="conv-input" placeholder="ex: 255, 1010, FF, 0o377…">
+      </div>
+
+      <!-- Boutons rapides nombres -->
+      <div id="conv-quick-numbers" class="flex-row" style="margin-bottom:12px;">
+        <button class="calc-btn btn-cyan" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConv(255)">255</button>
+        <button class="calc-btn btn-cyan" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConv(1024)">1024</button>
+        <button class="calc-btn btn-cyan" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConv(65535)">65535</button>
+        <button class="calc-btn btn-purple" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConv(42)">42</button>
+        <button class="calc-btn btn-purple" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConv(16777216)">16M</button>
+        <button class="calc-btn btn-gold" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConv(3141592653)">π×10⁹</button>
+      </div>
+
+      <!-- Boutons rapides texte -->
+      <div id="conv-quick-text" class="flex-row" style="margin-bottom:12px;display:none;">
+        <button class="calc-btn btn-cyan" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConvText('Hello')">Hello</button>
+        <button class="calc-btn btn-purple" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConvText('Bonjour')">Bonjour</button>
+        <button class="calc-btn btn-gold" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConvText('ΣCalc')">ΣCalc</button>
+        <button class="calc-btn btn-pink" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConvText('A')">A</button>
+        <button class="calc-btn btn-green" style="font-size:0.75rem;padding:7px 10px;" onclick="quickConvText('abc 123')">abc 123</button>
+      </div>
+
+      <button class="action-btn gold" onclick="runConvert()">⇄ Convertir</button>
+
+      <div class="loading" id="conv-loading"><div class="spinner"></div>Conversion en cours…</div>
+      <div id="conv-result" style="margin-top:12px;display:none;"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Table ASCII Rapide</div>
+      <div style="overflow-x:auto;">
+        <table class="conv-table" id="ascii-mini-table">
+          <thead>
+            <tr>
+              <td class="conv-label" style="color:var(--cyan);font-size:0.7rem;font-family:'Orbitron',monospace;">DÉC</td>
+              <td class="conv-label" style="color:var(--cyan);font-size:0.7rem;font-family:'Orbitron',monospace;">HEX</td>
+              <td class="conv-label" style="color:var(--cyan);font-size:0.7rem;font-family:'Orbitron',monospace;">BIN</td>
+              <td class="conv-label" style="color:var(--gold);font-size:0.7rem;font-family:'Orbitron',monospace;">CAR</td>
+            </tr>
+          </thead>
+          <tbody id="ascii-table-body"></tbody>
+        </table>
+      </div>
+      <div class="flex-row" style="margin-top:8px;">
+        <button class="calc-btn btn-cyan" style="font-size:0.75rem;" onclick="showAsciiRange(32,64)">Ponctuation (32–63)</button>
+        <button class="calc-btn btn-purple" style="font-size:0.75rem;" onclick="showAsciiRange(65,90)">Majuscules A–Z</button>
+        <button class="calc-btn btn-gold" style="font-size:0.75rem;" onclick="showAsciiRange(97,122)">Minuscules a–z</button>
+        <button class="calc-btn btn-green" style="font-size:0.75rem;" onclick="showAsciiRange(48,57)">Chiffres 0–9</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-// ─── STATE ────────────────────────────────────────────────────────────────────
+// ─── STATE ─────────────────────────────────────────────────────────────────
 let expr = '';
 let history = [];
 let funcCount = 1;
-let matrixA_data = null;
-let matrixB_data = null;
+let selectedBase = 'decimal';
 
-// ─── TABS ─────────────────────────────────────────────────────────────────────
-function switchTab(tab) {
+// ─── TABS ──────────────────────────────────────────────────────────────────
+function switchTab(tab, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
   if (tab === 'matrix') buildMatrix();
+  if (tab === 'matplot') buildMpMatrix();
   if (tab === 'proba') updateProbParams();
 }
 
-// ─── CALCULATOR ───────────────────────────────────────────────────────────────
+// ─── CALCULATOR ────────────────────────────────────────────────────────────
 function ins(v) {
   expr += v;
   document.getElementById('disp-expr').textContent = expr;
   document.getElementById('disp-result').textContent = expr || '0';
 }
-
 function clearAll() {
   expr = '';
   document.getElementById('disp-expr').textContent = '';
   document.getElementById('disp-result').textContent = '0';
   document.getElementById('disp-sym').textContent = '';
 }
-
 function backspace() {
   expr = expr.slice(0, -1);
   document.getElementById('disp-expr').textContent = expr;
   document.getElementById('disp-result').textContent = expr || '0';
 }
-
 async function calculate() {
   if (!expr) return;
   try {
     const r = await fetch('/api/calc', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
+      method: 'POST', headers: {'Content-Type':'application/json'},
       body: JSON.stringify({expression: expr})
     });
     const data = await r.json();
@@ -835,66 +855,47 @@ async function calculate() {
     } else {
       document.getElementById('disp-result').textContent = data.result;
       document.getElementById('disp-result').style.color = 'var(--cyan)';
-      if (data.symbolic !== data.result) {
-        document.getElementById('disp-sym').textContent = '= ' + data.symbolic;
-      } else {
-        document.getElementById('disp-sym').textContent = '';
-      }
+      if (data.symbolic !== data.result) document.getElementById('disp-sym').textContent = '= ' + data.symbolic;
+      else document.getElementById('disp-sym').textContent = '';
       addHistory(expr, data.result);
       expr = data.result;
       document.getElementById('disp-expr').textContent = '';
     }
-  } catch(e) {
-    document.getElementById('disp-result').textContent = '⚠ Erreur réseau';
-  }
+  } catch(e) { document.getElementById('disp-result').textContent = '⚠ Erreur réseau'; }
 }
-
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter') calculate();
   else if (e.key === 'Backspace' && !['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)) {
     e.preventDefault(); backspace();
   }
 });
-
 function addHistory(e, r) {
   history.unshift({expr: e, result: r});
   if (history.length > 50) history.pop();
   renderHistory();
 }
-
 function renderHistory() {
   const el = document.getElementById('history-list');
   if (history.length === 0) {
     el.innerHTML = '<div style="color:var(--muted);font-size:0.8rem;text-align:center;padding:20px;">Aucun calcul pour l\'instant</div>';
     return;
   }
-  el.innerHTML = history.slice(0,20).map(h => `
-    <div class="history-item" onclick="expr='${h.result}';document.getElementById('disp-result').textContent='${h.result}'">
+  el.innerHTML = history.slice(0,20).map(h =>
+    `<div class="history-item" onclick="expr='${h.result}';document.getElementById('disp-result').textContent='${h.result}'">
       <span class="hist-expr">${h.expr}</span>
       <span class="hist-result">${h.result}</span>
     </div>`).join('');
 }
 
-// ─── PLOT ─────────────────────────────────────────────────────────────────────
+// ─── PLOT ──────────────────────────────────────────────────────────────────
 let funcVisible = 1;
-function addFunc() {
-  if (funcVisible < 3) {
-    funcVisible++;
-    document.getElementById('func'+funcVisible+'-wrap').style.display = '';
-  }
-}
-function removeFunc() {
-  if (funcVisible > 1) {
-    document.getElementById('func'+funcVisible+'-wrap').style.display = 'none';
-    funcVisible--;
-  }
-}
+function addFunc() { if (funcVisible < 3) { funcVisible++; document.getElementById('func'+funcVisible+'-wrap').style.display = ''; } }
+function removeFunc() { if (funcVisible > 1) { document.getElementById('func'+funcVisible+'-wrap').style.display = 'none'; funcVisible--; } }
 function quickPlot(f) {
   document.getElementById('func1').value = f;
-  plotFunction();
   document.querySelectorAll('.tab-btn')[1].click();
+  setTimeout(plotFunction, 100);
 }
-
 async function plotFunction() {
   const funcs = [];
   for (let i = 1; i <= funcVisible; i++) {
@@ -906,14 +907,9 @@ async function plotFunction() {
   document.getElementById('plot-img').style.display = 'none';
   try {
     const r = await fetch('/api/plot', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        functions: funcs,
-        x_min: document.getElementById('xmin').value,
-        x_max: document.getElementById('xmax').value,
-        points: document.getElementById('npoints').value
-      })
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ functions: funcs, x_min: document.getElementById('xmin').value,
+        x_max: document.getElementById('xmax').value, points: document.getElementById('npoints').value })
     });
     const data = await r.json();
     document.getElementById('plot-loading').style.display = 'none';
@@ -921,58 +917,29 @@ async function plotFunction() {
       const img = document.getElementById('plot-img');
       img.src = 'data:image/png;base64,' + data.image;
       img.style.display = 'block';
-    } else {
-      alert('Erreur: ' + (data.error || 'Inconnue'));
     }
   } catch(e) { document.getElementById('plot-loading').style.display = 'none'; }
 }
 
-// ─── MATRIX ───────────────────────────────────────────────────────────────────
+// ─── MATRIX ────────────────────────────────────────────────────────────────
 function buildMatrix(prefix='A') {
-  const rows = parseInt(document.getElementById(`mat${prefix==='A'?'':'-B'}-rows`||'mat-rows').value||
-               document.getElementById('mat-rows').value);
-  const cols = parseInt(document.getElementById(`mat${prefix==='A'?'':'-B'}-cols`||'mat-cols').value||
-               document.getElementById('mat-cols').value);
+  const rows = parseInt(document.getElementById(prefix==='A' ? 'mat-rows' : 'matB-rows').value);
+  const cols = parseInt(document.getElementById(prefix==='A' ? 'mat-cols' : 'matB-cols').value);
   const container = document.getElementById(`matrix-${prefix}-container`);
   const grid = document.createElement('div');
   grid.className = 'matrix-grid';
   grid.style.gridTemplateColumns = `repeat(${cols}, 70px)`;
-  grid.innerHTML = '';
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const inp = document.createElement('input');
-      inp.type = 'text';
-      inp.className = 'matrix-cell';
-      inp.id = `mat-${prefix}-${i}-${j}`;
-      inp.value = (i === j ? '1' : '0');
+      inp.type = 'text'; inp.className = 'matrix-cell';
+      inp.id = `mat-${prefix}-${i}-${j}`; inp.value = (i === j ? '1' : '0');
       grid.appendChild(inp);
     }
   }
-  container.innerHTML = '';
-  container.appendChild(grid);
+  container.innerHTML = ''; container.appendChild(grid);
 }
-
-function buildMatrixB() {
-  const rows = parseInt(document.getElementById('matB-rows').value);
-  const cols = parseInt(document.getElementById('matB-cols').value);
-  const container = document.getElementById('matrix-B-container');
-  const grid = document.createElement('div');
-  grid.className = 'matrix-grid';
-  grid.style.gridTemplateColumns = `repeat(${cols}, 70px)`;
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      const inp = document.createElement('input');
-      inp.type = 'text';
-      inp.className = 'matrix-cell';
-      inp.id = `mat-B-${i}-${j}`;
-      inp.value = (i === j ? '1' : '0');
-      grid.appendChild(inp);
-    }
-  }
-  container.innerHTML = '';
-  container.appendChild(grid);
-}
-
+function buildMatrixB() { buildMatrix('B'); }
 function toggleMatB() {
   const op = document.getElementById('mat-op').value;
   const needs_B = ['add','subtract','multiply'].includes(op);
@@ -981,20 +948,16 @@ function toggleMatB() {
   document.getElementById('mat-power-wrap').style.display = needs_n ? '' : 'none';
   if (needs_B) buildMatrixB();
 }
-
 function getMatrix(prefix) {
-  const rows = parseInt(document.getElementById(prefix==='A'?'mat-rows':'matB-rows').value);
-  const cols = parseInt(document.getElementById(prefix==='A'?'mat-cols':'matB-cols').value);
+  const rows = parseInt(document.getElementById(prefix==='A' ? 'mat-rows' : 'matB-rows').value);
+  const cols = parseInt(document.getElementById(prefix==='A' ? 'mat-cols' : 'matB-cols').value);
   const M = [];
   for (let i = 0; i < rows; i++) {
     M.push([]);
-    for (let j = 0; j < cols; j++) {
-      M[i].push(parseFloat(document.getElementById(`mat-${prefix}-${i}-${j}`).value)||0);
-    }
+    for (let j = 0; j < cols; j++) M[i].push(parseFloat(document.getElementById(`mat-${prefix}-${i}-${j}`).value)||0);
   }
   return M;
 }
-
 function loadPreset(name) {
   const presets = {
     identity3: {rows:3,cols:3, data:[[1,0,0],[0,1,0],[0,0,1]]},
@@ -1006,38 +969,24 @@ function loadPreset(name) {
   document.getElementById('mat-rows').value = p.rows;
   document.getElementById('mat-cols').value = p.cols;
   buildMatrix();
-  p.data.forEach((row,i) => row.forEach((v,j) => {
-    const el = document.getElementById(`mat-A-${i}-${j}`);
-    if (el) el.value = v;
-  }));
+  p.data.forEach((row,i) => row.forEach((v,j) => { const el = document.getElementById(`mat-A-${i}-${j}`); if(el) el.value = v; }));
 }
-
 async function matrixCalc() {
   const op = document.getElementById('mat-op').value;
   const A = getMatrix('A');
   const body = {operation: op, A};
   if (['add','subtract','multiply'].includes(op)) body.B = getMatrix('B');
   if (op === 'power') body.n = document.getElementById('mat-power-n').value;
-
   document.getElementById('mat-loading').style.display = 'block';
   document.getElementById('mat-result').style.display = 'none';
-
   try {
-    const r = await fetch('/api/matrix', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(body)
-    });
+    const r = await fetch('/api/matrix', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     const data = await r.json();
     document.getElementById('mat-loading').style.display = 'none';
     const el = document.getElementById('mat-result');
-    el.style.display = 'block';
-    el.innerHTML = formatMatrixResult(data, op);
-  } catch(e) {
-    document.getElementById('mat-loading').style.display = 'none';
-  }
+    el.style.display = 'block'; el.innerHTML = formatMatrixResult(data, op);
+  } catch(e) { document.getElementById('mat-loading').style.display = 'none'; }
 }
-
 function formatMatrixResult(data, op) {
   if (data.error) return `<span class="result-error">⚠ ${data.error}</span>`;
   let html = '';
@@ -1047,29 +996,13 @@ function formatMatrixResult(data, op) {
     M.forEach(row => { t += '<tr>' + row.map(v=>`<td>${v}</td>`).join('') + '</tr>'; });
     return t + '</table><br>';
   };
-
   if (op === 'info') {
     html += `<div class="stats-grid">`;
-    const items = [
-      ['Dimensions', data.shape?.join(' × ')],
-      ['Rang', data.rank],
-      ['Trace', data.trace],
-      ['Déterminant', data.determinant],
-      ['Norme Frobenius', data.norm_frobenius],
-      ['Norme spectrale', data.norm_2],
-    ].filter(([,v]) => v !== undefined);
-    items.forEach(([k,v]) => {
-      html += `<div class="stat-card"><div class="stat-name">${k}</div><div class="stat-val">${v}</div></div>`;
-    });
+    const items = [['Dimensions', data.shape?.join(' × ')],['Rang', data.rank],['Trace', data.trace],['Déterminant', data.determinant],['Norme Frobenius', data.norm_frobenius],['Norme spectrale', data.norm_2]].filter(([,v]) => v !== undefined);
+    items.forEach(([k,v]) => { html += `<div class="stat-card"><div class="stat-name">${k}</div><div class="stat-val">${v}</div></div>`; });
     html += '</div>';
-    if (data.eigenvalues) {
-      html += `<p style="color:var(--muted);margin:12px 0 6px;font-size:0.8rem;">VALEURS PROPRES</p>`;
-      html += `<div class="flex-row">${data.eigenvalues.map(v=>`<span class="badge badge-cyan">${v}</span>`).join('')}</div>`;
-    }
-    if (data.singular_values) {
-      html += `<p style="color:var(--muted);margin:12px 0 6px;font-size:0.8rem;">VALEURS SINGULIÈRES</p>`;
-      html += `<div class="flex-row">${data.singular_values.map(v=>`<span class="badge badge-pink">${v}</span>`).join('')}</div>`;
-    }
+    if (data.eigenvalues) { html += `<p style="color:var(--muted);margin:12px 0 6px;font-size:0.8rem;">VALEURS PROPRES</p><div class="flex-row">${data.eigenvalues.map(v=>`<span class="badge badge-cyan">${v}</span>`).join('')}</div>`; }
+    if (data.singular_values) { html += `<p style="color:var(--muted);margin:12px 0 6px;font-size:0.8rem;">VALEURS SINGULIÈRES</p><div class="flex-row">${data.singular_values.map(v=>`<span class="badge badge-pink">${v}</span>`).join('')}</div>`; }
     if (data.inverse && typeof data.inverse !== 'string') html += matHTML(data.inverse, 'INVERSE A⁻¹');
     if (data.eigenvectors) html += matHTML(data.eigenvectors, 'VECTEURS PROPRES (colonnes)');
   } else if (['add','subtract','multiply','transpose','power'].includes(op)) {
@@ -1077,39 +1010,104 @@ function formatMatrixResult(data, op) {
   } else if (op === 'rref') {
     html += matHTML(data.result, 'FORME RREF');
     html += `<p style="color:var(--muted);font-size:0.8rem;margin-top:6px;">Pivots: [${data.pivots?.join(', ')}]</p>`;
-  } else if (op === 'lu') {
-    html += matHTML(data.P, 'P'); html += matHTML(data.L, 'L'); html += matHTML(data.U, 'U');
-  } else if (op === 'qr') {
-    html += matHTML(data.Q, 'Q'); html += matHTML(data.R, 'R');
-  } else if (op === 'cholesky') {
-    html += matHTML(data.L, 'L  (A = LLᵀ)');
-  }
+  } else if (op === 'lu') { html += matHTML(data.P, 'P'); html += matHTML(data.L, 'L'); html += matHTML(data.U, 'U'); }
+  else if (op === 'qr') { html += matHTML(data.Q, 'Q'); html += matHTML(data.R, 'R'); }
+  else if (op === 'cholesky') { html += matHTML(data.L, 'L  (A = LLᵀ)'); }
   return html;
 }
 
-// ─── STATISTICS ───────────────────────────────────────────────────────────────
+// ─── MATRIX PLOT ───────────────────────────────────────────────────────────
+const mpPresets = {
+  identity4: {rows:4, cols:4, data:[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]},
+  random4: {rows:4, cols:4, data:Array.from({length:4}, ()=>Array.from({length:4}, ()=>+(Math.random()*10-5).toFixed(2)))},
+  magic4: {rows:4, cols:4, data:[[16,2,3,13],[5,11,10,8],[9,7,6,12],[4,14,15,1]]},
+  hilbert4: {rows:4, cols:4, data:[[1,1/2,1/3,1/4],[1/2,1/3,1/4,1/5],[1/3,1/4,1/5,1/6],[1/4,1/5,1/6,1/7]].map(r=>r.map(v=>+v.toFixed(4)))},
+  laplacian: {rows:4, cols:4, data:[[2,-1,0,0],[-1,2,-1,0],[0,-1,2,-1],[0,0,-1,2]]},
+  toeplitz: {rows:4, cols:4, data:[[4,3,2,1],[3,4,3,2],[2,3,4,3],[1,2,3,4]]},
+  circulant: {rows:4, cols:4, data:[[1,2,3,4],[4,1,2,3],[3,4,1,2],[2,3,4,1]]},
+  rotation: {rows:4, cols:4, data:[[1,0,0,0],[0,0,-1,0],[0,1,0,0],[0,0,0,1]]},
+};
+
+function buildMpMatrix() {
+  const rows = parseInt(document.getElementById('mp-rows').value);
+  const cols = parseInt(document.getElementById('mp-cols').value);
+  const container = document.getElementById('mp-matrix-container');
+  const grid = document.createElement('div');
+  grid.className = 'matrix-grid';
+  grid.style.gridTemplateColumns = `repeat(${cols}, 68px)`;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      const inp = document.createElement('input');
+      inp.type = 'text'; inp.className = 'matrix-cell';
+      inp.id = `mp-${i}-${j}`; inp.value = (i === j ? '1' : '0');
+      grid.appendChild(inp);
+    }
+  }
+  container.innerHTML = ''; container.appendChild(grid);
+}
+
+function loadMpPreset(name) {
+  const p = mpPresets[name];
+  if (!p) return;
+  document.getElementById('mp-rows').value = p.rows;
+  document.getElementById('mp-cols').value = p.cols;
+  buildMpMatrix();
+  p.data.forEach((row,i) => row.forEach((v,j) => {
+    const el = document.getElementById(`mp-${i}-${j}`);
+    if (el) el.value = v;
+  }));
+}
+
+function getMpMatrix() {
+  const rows = parseInt(document.getElementById('mp-rows').value);
+  const cols = parseInt(document.getElementById('mp-cols').value);
+  const M = [];
+  for (let i = 0; i < rows; i++) {
+    M.push([]);
+    for (let j = 0; j < cols; j++) M[i].push(parseFloat(document.getElementById(`mp-${i}-${j}`).value)||0);
+  }
+  return M;
+}
+
+async function runMatrixPlot() {
+  const A = getMpMatrix();
+  const plot_type = document.getElementById('mp-plot-type').value;
+  document.getElementById('mp-loading').style.display = 'block';
+  document.getElementById('mp-img').style.display = 'none';
+  document.getElementById('mp-info').style.display = 'none';
+  try {
+    const r = await fetch('/api/matrix_plot', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({A, plot_type})
+    });
+    const data = await r.json();
+    document.getElementById('mp-loading').style.display = 'none';
+    if (data.error) {
+      document.getElementById('mp-info').style.display = 'block';
+      document.getElementById('mp-info').innerHTML = `<div class="result-box"><span class="result-error">⚠ ${data.error}</span></div>`;
+    } else if (data.image) {
+      const img = document.getElementById('mp-img');
+      img.src = 'data:image/png;base64,' + data.image;
+      img.style.display = 'block';
+    }
+  } catch(e) { document.getElementById('mp-loading').style.display = 'none'; }
+}
+
+// ─── STATISTICS ────────────────────────────────────────────────────────────
 document.getElementById('stat-op').addEventListener('change', function() {
   const op = this.value;
   document.getElementById('stat-extra').style.display = ['ttest_two','correlation','regression'].includes(op) ? '' : 'none';
   document.getElementById('stat-mu-wrap').style.display = op === 'ttest_one' ? '' : 'none';
   document.getElementById('stat-conf-wrap').style.display = op === 'confidence_interval' ? '' : 'none';
 });
-
-function parseData(str) {
-  return str.split(/[\s,;]+/).filter(Boolean).map(Number).filter(v=>!isNaN(v));
-}
-
+function parseData(str) { return str.split(/[\s,;]+/).filter(Boolean).map(Number).filter(v=>!isNaN(v)); }
 const datasets = {
   normal: Array.from({length:50}, () => (Math.random()+Math.random()+Math.random()-1.5)*10+50),
   uniform: Array.from({length:50}, () => Math.random()*100),
   skewed: Array.from({length:50}, () => Math.pow(Math.random(), 3)*100),
   bimodal: Array.from({length:50}, (_,i) => i<25 ? Math.random()*20+20 : Math.random()*20+60)
 };
-
-function loadDataset(name) {
-  document.getElementById('stat-data').value = datasets[name].map(v=>v.toFixed(2)).join(', ');
-}
-
+function loadDataset(name) { document.getElementById('stat-data').value = datasets[name].map(v=>v.toFixed(2)).join(', '); }
 async function runStats() {
   const dataset = parseData(document.getElementById('stat-data').value);
   const op = document.getElementById('stat-op').value;
@@ -1117,29 +1115,19 @@ async function runStats() {
   const body = {data: dataset, operation: op};
   if (op === 'confidence_interval') body.confidence = parseFloat(document.getElementById('stat-conf').value);
   if (op === 'ttest_one') body.mu = parseFloat(document.getElementById('stat-mu').value);
-  if (['ttest_two','correlation','regression'].includes(op)) {
-    body.data2 = parseData(document.getElementById('stat-data2').value);
-    if (op === 'regression') body.x_data = body.data2;
-  }
-
+  if (['ttest_two','correlation','regression'].includes(op)) { body.data2 = parseData(document.getElementById('stat-data2').value); if (op === 'regression') body.x_data = body.data2; }
   document.getElementById('stats-loading').style.display = 'block';
   document.getElementById('stats-result').innerHTML = '';
   try {
-    const r = await fetch('/api/stats', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(body)
-    });
+    const r = await fetch('/api/stats', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     const data = await r.json();
     document.getElementById('stats-loading').style.display = 'none';
     renderStatsResult(data, op);
   } catch(e) { document.getElementById('stats-loading').style.display = 'none'; }
 }
-
 function renderStatsResult(data, op) {
   const el = document.getElementById('stats-result');
   if (data.error) { el.innerHTML = `<div class="result-box result-error">⚠ ${data.error}</div>`; return; }
-
   if (data.image) {
     el.innerHTML = `<img src="data:image/png;base64,${data.image}" class="plot-img">`;
     if (op === 'regression') {
@@ -1152,7 +1140,6 @@ function renderStatsResult(data, op) {
     }
     return;
   }
-
   const skip = ['error','image'];
   const items = Object.entries(data).filter(([k]) => !skip.includes(k));
   const gridItems = items.map(([k,v]) => {
@@ -1168,9 +1155,9 @@ function renderStatsResult(data, op) {
   el.innerHTML = `<div class="stats-grid">${gridItems}</div>`;
 }
 
-// ─── PROBABILITY ──────────────────────────────────────────────────────────────
+// ─── PROBABILITY ───────────────────────────────────────────────────────────
 const distParams = {
-  normal: [{name:'loc', label:'μ (moyenne)', val:'0'},{name:'scale',label:'σ (écart-type)',val:'1'}],
+  normal: [{name:'loc',label:'μ (moyenne)',val:'0'},{name:'scale',label:'σ (écart-type)',val:'1'}],
   binomial: [{name:'n',label:'n (essais)',val:'10'},{name:'p',label:'p (proba succès)',val:'0.5'}],
   poisson: [{name:'mu',label:'λ (taux)',val:'3'}],
   exponential: [{name:'loc',label:'loc',val:'0'},{name:'scale',label:'1/λ',val:'1'}],
@@ -1186,53 +1173,36 @@ const distParams = {
   weibull: [{name:'c',label:'c (forme)',val:'1.5'},{name:'loc',label:'loc',val:'0'},{name:'scale',label:'scale',val:'1'}],
   lognormal: [{name:'s',label:'σ',val:'0.954'},{name:'loc',label:'loc',val:'0'},{name:'scale',label:'scale',val:'1'}],
 };
-
 function updateProbParams() {
   const dist = document.getElementById('prob-dist').value;
   const params = distParams[dist] || [];
-  const container = document.getElementById('prob-params-container');
-  container.innerHTML = params.map(p => `
-    <div class="form-group">
-      <label>${p.label}</label>
-      <input type="number" id="prob-${p.name}" value="${p.val}" step="0.01">
-    </div>`).join('');
+  document.getElementById('prob-params-container').innerHTML = params.map(p =>
+    `<div class="form-group"><label>${p.label}</label><input type="number" id="prob-${p.name}" value="${p.val}" step="0.01"></div>`
+  ).join('');
 }
-
 async function runProba() {
   const dist = document.getElementById('prob-dist').value;
   const action = document.getElementById('prob-action').value;
   const x = document.getElementById('prob-x')?.value;
   const params = {};
-  (distParams[dist]||[]).forEach(p => {
-    const el = document.getElementById('prob-'+p.name);
-    if (el) params[p.name] = el.value;
-  });
-
+  (distParams[dist]||[]).forEach(p => { const el = document.getElementById('prob-'+p.name); if (el) params[p.name] = el.value; });
   document.getElementById('proba-loading').style.display = 'block';
   document.getElementById('proba-result').innerHTML = '';
   try {
-    const r = await fetch('/api/probability', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({distribution:dist, action, x, params})
-    });
+    const r = await fetch('/api/probability', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({distribution:dist, action, x, params}) });
     const data = await r.json();
     document.getElementById('proba-loading').style.display = 'none';
-    renderProbaResult(data, action);
+    const el = document.getElementById('proba-result');
+    if (data.error) { el.innerHTML = `<div class="result-box result-error">⚠ ${data.error}</div>`; return; }
+    if (data.image) { el.innerHTML = `<img src="data:image/png;base64,${data.image}" class="plot-img">`; return; }
+    const items = Object.entries(data).filter(([k]) => k !== 'type');
+    el.innerHTML = `<div class="stats-grid">${items.map(([k,v]) =>
+      `<div class="stat-card"><div class="stat-name">${(data.type||k).toUpperCase()}</div><div class="stat-val">${v}</div></div>`
+    ).join('')}</div>`;
   } catch(e) { document.getElementById('proba-loading').style.display = 'none'; }
 }
 
-function renderProbaResult(data, action) {
-  const el = document.getElementById('proba-result');
-  if (data.error) { el.innerHTML = `<div class="result-box result-error">⚠ ${data.error}</div>`; return; }
-  if (data.image) { el.innerHTML = `<img src="data:image/png;base64,${data.image}" class="plot-img">`; return; }
-  const items = Object.entries(data).filter(([k]) => k !== 'type');
-  el.innerHTML = `<div class="stats-grid">${items.map(([k,v]) =>
-    `<div class="stat-card"><div class="stat-name">${(data.type||k).toUpperCase()}</div><div class="stat-val">${v}</div></div>`
-  ).join('')}</div>`;
-}
-
-// ─── CALCULUS ─────────────────────────────────────────────────────────────────
+// ─── CALCULUS ──────────────────────────────────────────────────────────────
 function updateCalculusFields() {
   const op = document.getElementById('calc-op').value;
   document.getElementById('calc-n-wrap').style.display = op === 'derivative' ? '' : 'none';
@@ -1240,77 +1210,213 @@ function updateCalculusFields() {
   document.getElementById('calc-lim-wrap').style.display = op === 'limit' ? '' : 'none';
   document.getElementById('calc-series-wrap').style.display = op === 'series' ? '' : 'none';
 }
-
-function quickCalc(expr, op) {
-  document.getElementById('calc-expr').value = expr;
+function quickCalc(e, op) {
+  document.getElementById('calc-expr').value = e;
   document.getElementById('calc-op').value = op;
   updateCalculusFields();
-  if (op === 'limit') {
-    document.getElementById('calc-point').value = op === 'limit' && expr.includes('/x') ? '0' : '0';
-  }
   runCalculus();
 }
-
 async function runCalculus() {
-  const expr = document.getElementById('calc-expr').value.trim();
+  const e = document.getElementById('calc-expr').value.trim();
   const op = document.getElementById('calc-op').value;
-  if (!expr) return;
-  const body = {expression: expr, operation: op};
+  if (!e) return;
+  const body = {expression: e, operation: op};
   if (op === 'derivative') body.n = document.getElementById('calc-n').value;
-  if (op === 'integral') {
-    body.a = document.getElementById('calc-a').value || null;
-    body.b = document.getElementById('calc-b').value || null;
-  }
-  if (op === 'limit') {
-    body.point = document.getElementById('calc-point').value;
-    body.direction = document.getElementById('calc-dir').value;
-  }
-  if (op === 'series') {
-    body.point = document.getElementById('calc-series-point').value;
-    body.n = document.getElementById('calc-series-n').value;
-  }
-
+  if (op === 'integral') { body.a = document.getElementById('calc-a').value || null; body.b = document.getElementById('calc-b').value || null; }
+  if (op === 'limit') { body.point = document.getElementById('calc-point').value; body.direction = document.getElementById('calc-dir').value; }
+  if (op === 'series') { body.point = document.getElementById('calc-series-point').value; body.n = document.getElementById('calc-series-n').value; }
   document.getElementById('calculus-loading').style.display = 'block';
   document.getElementById('calculus-result').innerHTML = '';
   try {
-    const r = await fetch('/api/calculus', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(body)
-    });
+    const r = await fetch('/api/calculus', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
     const data = await r.json();
     document.getElementById('calculus-loading').style.display = 'none';
-    renderCalculusResult(data, op);
+    const el = document.getElementById('calculus-result');
+    if (data.error) { el.innerHTML = `<div class="result-box result-error">⚠ ${data.error}</div>`; return; }
+    let html = '';
+    if (data.result) {
+      html += `<div class="result-box" style="margin-bottom:10px;">
+        <div class="result-item"><span class="result-label">Résultat symbolique</span><span class="result-value">${data.result}</span></div>
+        ${data.numeric ? `<div class="result-item"><span class="result-label">Valeur numérique</span><span class="result-value" style="color:var(--gold)">${data.numeric}</span></div>` : ''}
+      </div>`;
+    }
+    if (data.solutions) {
+      html += `<div class="result-box"><p style="color:var(--muted);margin-bottom:8px;font-size:0.8rem;">SOLUTIONS</p>`;
+      data.solutions.forEach((s,i) => { html += `<div class="result-item"><span class="result-label">x${i+1}</span><span class="result-value">${s}</span></div>`; });
+      html += '</div>';
+    }
+    el.innerHTML = html;
   } catch(e) { document.getElementById('calculus-loading').style.display = 'none'; }
 }
 
-function renderCalculusResult(data, op) {
-  const el = document.getElementById('calculus-result');
-  if (data.error) { el.innerHTML = `<div class="result-box result-error">⚠ ${data.error}</div>`; return; }
-
-  let html = '';
-  const keys = Object.keys(data).filter(k => k !== 'error');
-
-  if (data.result) {
-    html += `<div class="result-box" style="margin-bottom:10px;">
-      <div class="result-item"><span class="result-label">Résultat symbolique</span><span class="result-value">${data.result}</span></div>
-      ${data.numeric ? `<div class="result-item"><span class="result-label">Valeur numérique</span><span class="result-value" style="color:var(--gold)">${data.numeric}</span></div>` : ''}
-    </div>`;
-  }
-  if (data.solutions) {
-    html += `<div class="result-box"><p style="color:var(--muted);margin-bottom:8px;font-size:0.8rem;">SOLUTIONS</p>`;
-    data.solutions.forEach((s,i) => {
-      html += `<div class="result-item"><span class="result-label">x${i+1}</span><span class="result-value">${s}</span></div>`;
-    });
-    html += '</div>';
-  }
-  el.innerHTML = html;
+// ─── CONVERSION ────────────────────────────────────────────────────────────
+function selectBase(btn) {
+  document.querySelectorAll('.base-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  selectedBase = btn.dataset.base;
+  const ph = {decimal: 'ex: 255, 1024, 65535', binary: 'ex: 11111111', octal: 'ex: 377', hexadecimal: 'ex: FF ou 0xFF', base32: 'ex: 7V', base36: 'ex: ZZ'};
+  document.getElementById('conv-input').placeholder = ph[selectedBase] || 'Entrez la valeur…';
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
+function updateConvUI() {
+  const t = document.getElementById('conv-type').value;
+  const isNum = ['number', 'float_ieee754'].includes(t);
+  const isText = ['text', 'ascii_to_text', 'hex_to_text', 'bin_to_text'].includes(t);
+  document.getElementById('conv-base-section').style.display = isNum ? '' : 'none';
+  document.getElementById('conv-quick-numbers').style.display = isNum ? '' : 'none';
+  document.getElementById('conv-quick-text').style.display = isText ? '' : 'none';
+
+  const labels = {
+    number: 'Nombre à convertir',
+    text: 'Texte / Phrase à encoder',
+    ascii_to_text: 'Codes ASCII séparés par espaces ou virgules',
+    hex_to_text: 'Valeur hexadécimale (ex: 48 65 6C 6C 6F)',
+    bin_to_text: 'Bits (ex: 01001000 01100101)',
+    float_ieee754: 'Nombre flottant (ex: 3.14159)'
+  };
+  document.getElementById('conv-input-label').textContent = labels[t] || 'Valeur';
+  document.getElementById('conv-input').value = '';
+}
+
+function quickConv(n) {
+  document.getElementById('conv-type').value = 'number';
+  updateConvUI();
+  document.getElementById('conv-input').value = n;
+  runConvert();
+}
+
+function quickConvText(t) {
+  document.getElementById('conv-type').value = 'text';
+  updateConvUI();
+  document.getElementById('conv-input').value = t;
+  runConvert();
+}
+
+async function runConvert() {
+  const value = document.getElementById('conv-input').value.trim();
+  if (!value) return alert('Veuillez entrer une valeur.');
+  const convert_type = document.getElementById('conv-type').value;
+  const body = {value, convert_type, from_base: selectedBase};
+
+  document.getElementById('conv-loading').style.display = 'block';
+  document.getElementById('conv-result').style.display = 'none';
+
+  try {
+    const r = await fetch('/api/convert', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    const data = await r.json();
+    document.getElementById('conv-loading').style.display = 'none';
+    renderConvResult(data, convert_type);
+  } catch(e) { document.getElementById('conv-loading').style.display = 'none'; alert('Erreur réseau'); }
+}
+
+function renderConvResult(data, type) {
+  const el = document.getElementById('conv-result');
+  el.style.display = 'block';
+  if (data.error) { el.innerHTML = `<div class="result-box"><span class="result-error">⚠ ${data.error}</span></div>`; return; }
+
+  // Libellés lisibles
+  const labelMap = {
+    decimal: '🔢 Décimal (base 10)',
+    binaire: '💾 Binaire (base 2)',
+    base_2_groupe: '💾 Binaire groupé (4 bits)',
+    octal: '🔡 Octal (base 8)',
+    base_8: '🔡 Octal (notation)',
+    hexadecimal: '🔠 Hexadécimal (base 16)',
+    base_16: '🔠 Hexadécimal (notation)',
+    base_32: '🔣 Base 32',
+    base_36: '🔣 Base 36',
+    bits_necessaires: '📏 Bits nécessaires',
+    complement_2: '🔄 Complément à 2 (32 bits)',
+    ieee754_32: '🧮 IEEE 754 simple précision (32 bits)',
+    ieee754_64: '🧮 IEEE 754 double précision (64 bits)',
+    texte_original: '📝 Texte original',
+    longueur: '📏 Longueur (caractères)',
+    ascii_decimaux: '🔢 Codes ASCII (décimaux)',
+    hexadecimal_text: '🔠 Hexadécimal',
+    binaire_text: '💾 Binaire (8 bits/char)',
+    octal_text: '🔡 Octal',
+    base64: '🔒 Base64',
+    url_encodage: '🌐 URL encodé',
+    utf8_hex: '🔤 UTF-8 (hex)',
+    utf16_hex: '🔤 UTF-16 LE (hex)',
+    texte: '📝 Texte décodé',
+    texte_utf8: '📝 Texte (UTF-8)',
+    texte_latin1: '📝 Texte (Latin-1)',
+    bytes_hex: '🔠 Bytes (hex)',
+    codes_entres: '🔢 Codes traités',
+    bits_traites: '📏 Bits traités',
+    signe: '± Signe (bit)',
+    exposant: '📐 Exposant (8 bits)',
+    mantisse: '🔢 Mantisse (23 bits)',
+    exposant_decimal: '📐 Exposant (décimal)',
+    exposant_biaise: '📐 Exposant biaisé (−127)',
+    ieee754_32bits: '🧮 IEEE 754 (32 bits complet)',
+    ieee754_64bits: '🧮 IEEE 754 (64 bits complet)',
+    valeur_exacte: '✅ Valeur exacte',
+  };
+
+  // Couleurs par catégorie
+  const colorMap = {
+    decimal: 'var(--cyan)', binaire: 'var(--green)', base_2_groupe: 'var(--green)',
+    octal: 'var(--purple)', base_8: 'var(--purple)', hexadecimal: 'var(--gold)',
+    base_16: 'var(--gold)', base_32: 'var(--orange)', base_36: 'var(--pink)',
+    complement_2: 'var(--cyan)', ieee754_32: 'var(--pink)', ieee754_64: 'var(--pink)',
+    base64: 'var(--gold)', url_encodage: 'var(--orange)', texte: 'var(--green)',
+    texte_utf8: 'var(--green)',
+  };
+
+  const skip = ['base_64_val', 'ieee754'];
+  const rows = Object.entries(data)
+    .filter(([k]) => !skip.includes(k) && data[k] !== '' && data[k] !== undefined)
+    .map(([k, v]) => {
+      const label = labelMap[k] || k.replace(/_/g,' ').toUpperCase();
+      const color = colorMap[k] || 'var(--text)';
+      const displayVal = String(v).length > 80 ? `<span style="font-size:0.75rem;">${v}</span>` : v;
+      return `<tr>
+        <td class="conv-label">${label}</td>
+        <td class="conv-value" style="color:${color}">${displayVal}</td>
+        <td style="padding:8px 6px;">
+          <button class="conv-copy-btn" onclick="copyVal(this, '${String(v).replace(/'/g,"\\'")}')">copier</button>
+        </td>
+      </tr>`;
+    }).join('');
+
+  el.innerHTML = `<div class="result-box" style="padding:0;overflow:hidden;">
+    <table class="conv-table" style="margin-top:0;">${rows}</table>
+  </div>`;
+}
+
+function copyVal(btn, val) {
+  navigator.clipboard.writeText(val).then(() => {
+    const old = btn.textContent;
+    btn.textContent = '✓ copié';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => { btn.textContent = old; btn.style.color = ''; }, 1500);
+  }).catch(() => {});
+}
+
+// ─── ASCII TABLE ────────────────────────────────────────────────────────────
+function showAsciiRange(start, end) {
+  const tbody = document.getElementById('ascii-table-body');
+  tbody.innerHTML = '';
+  for (let c = start; c <= end; c++) {
+    const char = c >= 32 ? String.fromCharCode(c) : '·';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:0.82rem;padding:6px 10px;">${c}</td>
+      <td style="color:var(--gold);font-family:'Share Tech Mono',monospace;font-size:0.82rem;padding:6px 10px;">${c.toString(16).toUpperCase().padStart(2,'0')}</td>
+      <td style="color:var(--green);font-family:'Share Tech Mono',monospace;font-size:0.78rem;padding:6px 10px;">${c.toString(2).padStart(8,'0')}</td>
+      <td style="color:var(--pink);font-size:1rem;padding:6px 10px;font-weight:bold;cursor:pointer;" title="Cliquer pour convertir" onclick="quickConv(${c})">${char}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
 buildMatrix();
+buildMpMatrix();
 updateCalculusFields();
 updateProbParams();
+showAsciiRange(65, 90);
 </script>
 </body>
 </html>

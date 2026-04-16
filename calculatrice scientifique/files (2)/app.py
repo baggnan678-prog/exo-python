@@ -180,6 +180,256 @@ def _fmt(v):
 def _mat(M):
     return [[_fmt(M[i,j]) for j in range(M.shape[1])] for i in range(M.shape[0])]
 
+# ── MATRIX PLOT ───────────────────────────────────────────────────────────────
+@app.route('/api/matrix_plot', methods=['POST'])
+def matrix_plot():
+    try:
+        data = request.json
+        A_raw = data.get('A')
+        plot_type = data.get('plot_type', 'heatmap')
+        A = np.array(A_raw, dtype=float)
+
+        if plot_type == 'heatmap':
+            fig, ax = plt.subplots(figsize=(8, 6), facecolor='#0d0d1a')
+            ax.set_facecolor('#0d0d1a')
+            im = ax.imshow(A, cmap='plasma', aspect='auto')
+            cbar = plt.colorbar(im, ax=ax)
+            cbar.ax.yaxis.set_tick_params(color='#a0a0c0')
+            cbar.ax.tick_params(colors='#a0a0c0')
+            for i in range(A.shape[0]):
+                for j in range(A.shape[1]):
+                    ax.text(j, i, f'{A[i,j]:.2f}', ha='center', va='center',
+                            color='white', fontsize=9, fontweight='bold')
+            ax.set_xticks(range(A.shape[1]))
+            ax.set_yticks(range(A.shape[0]))
+            ax.set_xticklabels([f'col {j+1}' for j in range(A.shape[1])], color='#a0a0c0')
+            ax.set_yticklabels([f'ligne {i+1}' for i in range(A.shape[0])], color='#a0a0c0')
+            ax.set_title('Carte de chaleur (Heatmap)', color='#00f5ff', fontsize=14, pad=12)
+            for sp_ in ax.spines.values(): sp_.set_color('#1e1e3a')
+
+        elif plot_type == 'eigenvalues' and A.shape[0] == A.shape[1]:
+            eigenvalues = np.linalg.eigvals(A)
+            fig, ax = plt.subplots(figsize=(8, 6), facecolor='#0d0d1a')
+            ax.set_facecolor('#0d0d1a')
+            ax.grid(True, color='#1e1e3a', linewidth=0.8, alpha=0.7)
+            ax.axhline(0, color='#00f5ff', linewidth=1, alpha=0.5)
+            ax.axvline(0, color='#00f5ff', linewidth=1, alpha=0.5)
+            real_parts = eigenvalues.real
+            imag_parts = eigenvalues.imag
+            sc = ax.scatter(real_parts, imag_parts, c='#ffd700', s=120, zorder=5,
+                           edgecolors='#ff6b9d', linewidths=2)
+            for i, ev in enumerate(eigenvalues):
+                ax.annotate(f'λ{i+1}={ev.real:.3f}{("+" if ev.imag>=0 else "")}{ev.imag:.3f}i',
+                           (ev.real, ev.imag), textcoords='offset points',
+                           xytext=(8,8), color='#c77dff', fontsize=9)
+            # Cercle unité
+            theta = np.linspace(0, 2*np.pi, 200)
+            ax.plot(np.cos(theta), np.sin(theta), color='#1e1e3a', linewidth=1.5, linestyle='--', alpha=0.7)
+            ax.set_xlabel('Partie réelle', color='#a0a0c0', fontsize=12)
+            ax.set_ylabel('Partie imaginaire', color='#a0a0c0', fontsize=12)
+            ax.set_title('Spectre des valeurs propres (Plan complexe)', color='#00f5ff', fontsize=14, pad=12)
+            ax.tick_params(colors='#a0a0c0')
+            for sp_ in ax.spines.values(): sp_.set_color('#1e1e3a')
+            ax.set_aspect('equal', adjustable='box')
+
+        elif plot_type == 'svd_bar' and A.shape[0] == A.shape[1]:
+            _, singular_vals, _ = np.linalg.svd(A)
+            fig, axes = plt.subplots(1, 2, figsize=(12, 5), facecolor='#0d0d1a')
+            colors_sv = ['#00f5ff', '#ff6b9d', '#ffd700', '#7cff7c', '#c77dff', '#ff8c42',
+                         '#00b4d8', '#f72585', '#7b2d8b', '#06d6a0']
+
+            axes[0].bar(range(len(singular_vals)), singular_vals,
+                       color=colors_sv[:len(singular_vals)], edgecolor='#0d0d1a', linewidth=0.5)
+            axes[0].set_title('Valeurs singulières', color='#00f5ff', fontsize=13)
+            axes[0].set_xlabel('Indice', color='#a0a0c0')
+            axes[0].set_ylabel('σ', color='#a0a0c0')
+
+            cumvar = np.cumsum(singular_vals**2) / np.sum(singular_vals**2) * 100
+            axes[1].plot(range(len(cumvar)), cumvar, color='#ffd700', linewidth=2.5, marker='o',
+                        markersize=8, markerfacecolor='#ff6b9d')
+            axes[1].axhline(95, color='#7cff7c', linewidth=1, linestyle='--', alpha=0.7)
+            axes[1].set_title('Variance cumulée (%)', color='#00f5ff', fontsize=13)
+            axes[1].set_xlabel('Nombre de valeurs singulières', color='#a0a0c0')
+            axes[1].set_ylabel('Variance expliquée (%)', color='#a0a0c0')
+
+            for ax in axes:
+                ax.set_facecolor('#0d0d1a')
+                ax.tick_params(colors='#a0a0c0')
+                for sp_ in ax.spines.values(): sp_.set_color('#1e1e3a')
+                ax.grid(True, color='#1e1e3a', alpha=0.5)
+
+        elif plot_type == 'surface' and A.shape[0] >= 2 and A.shape[1] >= 2:
+            from mpl_toolkits.mplot3d import Axes3D
+            fig = plt.figure(figsize=(9, 7), facecolor='#0d0d1a')
+            ax = fig.add_subplot(111, projection='3d')
+            ax.set_facecolor('#0d0d1a')
+            x_idx = np.arange(A.shape[1])
+            y_idx = np.arange(A.shape[0])
+            X, Y = np.meshgrid(x_idx, y_idx)
+            surf = ax.plot_surface(X, Y, A, cmap='plasma', edgecolor='none', alpha=0.9)
+            fig.colorbar(surf, ax=ax, shrink=0.5)
+            ax.set_title('Surface 3D de la matrice', color='#00f5ff', fontsize=13, pad=15)
+            ax.tick_params(colors='#a0a0c0')
+            ax.xaxis.pane.fill = False; ax.yaxis.pane.fill = False; ax.zaxis.pane.fill = False
+
+        else:
+            # fallback heatmap si incompatible
+            plot_type = 'heatmap'
+            fig, ax = plt.subplots(figsize=(8, 6), facecolor='#0d0d1a')
+            ax.set_facecolor('#0d0d1a')
+            ax.imshow(A, cmap='plasma', aspect='auto')
+            ax.set_title('Carte de chaleur', color='#00f5ff', fontsize=14)
+
+        plt.tight_layout()
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=130, bbox_inches='tight', facecolor='#0d0d1a')
+        plt.close(); buf.seek(0)
+        return jsonify({'image': base64.b64encode(buf.read()).decode()})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+# ── CONVERSION NUMÉRIQUE ──────────────────────────────────────────────────────
+@app.route('/api/convert', methods=['POST'])
+def convert():
+    try:
+        data = request.json
+        value = data.get('value', '').strip()
+        from_base = data.get('from_base', 'decimal')
+        convert_type = data.get('convert_type', 'number')
+
+        result = {}
+
+        if convert_type == 'number':
+            # Convertir depuis la base source vers entier
+            if from_base == 'decimal':
+                # Support float
+                if '.' in value:
+                    n_int = int(float(value))
+                else:
+                    n_int = int(value)
+                n_float = float(value)
+            elif from_base == 'binary':
+                n_int = int(value.replace(' ', ''), 2)
+                n_float = n_int
+            elif from_base == 'octal':
+                n_int = int(value.replace('0o', ''), 8)
+                n_float = n_int
+            elif from_base == 'hexadecimal':
+                n_int = int(value.replace('0x', '').replace('0X', ''), 16)
+                n_float = n_int
+            elif from_base == 'base32':
+                n_int = int(value, 32)
+                n_float = n_int
+            elif from_base == 'base36':
+                n_int = int(value, 36)
+                n_float = n_int
+            else:
+                n_int = int(value)
+                n_float = n_int
+
+            # Conversions vers toutes les bases
+            result['decimal'] = str(n_int)
+            result['binaire'] = bin(n_int).replace('0b', '') if n_int >= 0 else '-' + bin(n_int)[3:]
+            result['octal'] = oct(n_int).replace('0o', '') if n_int >= 0 else '-' + oct(n_int)[4:]
+            result['hexadecimal'] = hex(n_int).replace('0x', '').upper() if n_int >= 0 else '-' + hex(n_int)[3:].upper()
+            result['base_2_groupe'] = ' '.join([result['binaire'][i:i+4] for i in range(0, len(result['binaire']), 4)])
+            result['base_8'] = oct(n_int)
+            result['base_16'] = '0x' + hex(n_int)[2:].upper()
+            result['base_32'] = np.base_repr(n_int, 32) if n_int >= 0 else 'N/A'
+            result['base_36'] = np.base_repr(n_int, 36) if n_int >= 0 else 'N/A'
+            result['base_64_val'] = str(n_int) + ' (valeur, pas encodage base64)'
+            result['bits_necessaires'] = str(n_int.bit_length()) if n_int > 0 else '1'
+            result['complement_2'] = bin(n_int & 0xFFFFFFFF)[2:].zfill(32) if n_int >= -2**31 else 'Hors portée 32 bits'
+            result['ieee754'] = ''
+            try:
+                import struct
+                packed = struct.pack('!f', n_float)
+                result['ieee754_32'] = ' '.join(f'{b:08b}' for b in packed)
+                packed64 = struct.pack('!d', n_float)
+                result['ieee754_64'] = ' '.join(f'{b:08b}' for b in packed64)
+            except:
+                result['ieee754_32'] = 'N/A'
+                result['ieee754_64'] = 'N/A'
+
+        elif convert_type == 'text':
+            text = value
+            # Encodage ASCII/Unicode
+            ascii_codes = []
+            binary_codes = []
+            hex_codes = []
+            octal_codes = []
+            for ch in text[:200]:  # limit 200 chars
+                code = ord(ch)
+                ascii_codes.append(str(code))
+                binary_codes.append(format(code, '08b'))
+                hex_codes.append(format(code, '02X'))
+                octal_codes.append(format(code, 'o'))
+
+            result['texte_original'] = text
+            result['longueur'] = str(len(text))
+            result['ascii_decimaux'] = ' '.join(ascii_codes)
+            result['hexadecimal'] = ' '.join(hex_codes)
+            result['binaire'] = ' '.join(binary_codes)
+            result['octal'] = ' '.join(octal_codes)
+
+            # Base64
+            import base64 as b64
+            result['base64'] = b64.b64encode(text.encode('utf-8')).decode()
+            result['url_encode'] = ''
+            from urllib.parse import quote
+            result['url_encodage'] = quote(text)
+            result['utf8_hex'] = text.encode('utf-8').hex()
+            result['utf16_hex'] = text.encode('utf-16-le').hex()
+
+        elif convert_type == 'ascii_to_text':
+            # Codes ASCII vers texte
+            codes = [int(c) for c in value.replace(',', ' ').split() if c.strip().isdigit()]
+            result['texte'] = ''.join(chr(c) for c in codes if 0 <= c <= 127)
+            result['codes_entres'] = str(codes)
+
+        elif convert_type == 'hex_to_text':
+            clean = value.replace(' ', '').replace('0x', '').replace('0X', '')
+            if len(clean) % 2 != 0:
+                clean = '0' + clean
+            bytes_val = bytes.fromhex(clean)
+            try:
+                result['texte_utf8'] = bytes_val.decode('utf-8')
+            except:
+                result['texte_utf8'] = 'Non décodable en UTF-8'
+            result['texte_latin1'] = bytes_val.decode('latin-1')
+            result['bytes_hex'] = ' '.join(f'{b:02X}' for b in bytes_val)
+
+        elif convert_type == 'bin_to_text':
+            bits = value.replace(' ', '')
+            if len(bits) % 8 != 0:
+                bits = bits.zfill(len(bits) + (8 - len(bits) % 8))
+            chars = []
+            for i in range(0, len(bits), 8):
+                byte = bits[i:i+8]
+                chars.append(chr(int(byte, 2)))
+            result['texte'] = ''.join(chars)
+            result['bits_traites'] = len(bits)
+
+        elif convert_type == 'float_ieee754':
+            import struct
+            f_val = float(value)
+            packed = struct.pack('!f', f_val)
+            b = ''.join(f'{byte:08b}' for byte in packed)
+            result['signe'] = b[0]
+            result['exposant'] = b[1:9]
+            result['mantisse'] = b[9:]
+            result['exposant_decimal'] = str(int(b[1:9], 2))
+            result['exposant_biaise'] = str(int(b[1:9], 2) - 127)
+            result['ieee754_32bits'] = b
+            packed64 = struct.pack('!d', f_val)
+            b64_bits = ''.join(f'{byte:08b}' for byte in packed64)
+            result['ieee754_64bits'] = b64_bits
+            result['valeur_exacte'] = str(f_val)
+
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
 # ── STATISTICS ────────────────────────────────────────────────────────────────
 @app.route('/api/stats', methods=['POST'])
 def statistics():

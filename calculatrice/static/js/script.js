@@ -1,6 +1,7 @@
 /**
- * Calculatrice Scientifique — Script principal
- * Gestion des onglets, saisie, appels API Flask et affichage des résultats.
+ * Calculatrice Scientifique v2.0 — Script principal
+ * Nouvelles fonctionnalités : mode 2nd, fonctions hyperboliques,
+ * puissances, racine cubique, combinatoire, touche ±
  */
 
 "use strict";
@@ -20,17 +21,20 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 
 
 /* ═══════════════════════════════════════════
-   2. CALCULATRICE STANDARD
+   2. CALCULATRICE SCIENTIFIQUE
    ═══════════════════════════════════════════ */
 
-let calcExpression = "";    // Expression en cours de construction
-let calcHistory    = [];    // Historique des calculs
-let calcMode       = "deg"; // Mode angulaire actif
+let calcExpression = "";
+let calcHistory    = [];
+let calcMode       = "deg";
+let mode2nd        = false;   // Mode fonction inverse actif
 
 const displayInput  = document.getElementById("display-input");
 const displayResult = document.getElementById("display-result");
+const btn2nd        = document.getElementById("btn-2nd");
+const calcGrid      = document.querySelector(".calc-grid");
 
-// ── Boutons de mode DEG / RAD ──
+// ── Mode DEG / RAD ──
 document.querySelectorAll(".mode-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
@@ -39,9 +43,28 @@ document.querySelectorAll(".mode-btn").forEach(btn => {
   });
 });
 
-// ── Gestion des clics sur les boutons de la calculatrice ──
+// ── Bouton 2nd : bascule les fonctions inverses ──
+btn2nd.addEventListener("click", () => {
+  mode2nd = !mode2nd;
+  btn2nd.classList.toggle("active", mode2nd);
+  calcGrid.classList.toggle("mode-2nd", mode2nd);
+});
+
+// ── Clics sur les touches de la calculatrice ──
 document.querySelectorAll(".calc-key").forEach(btn => {
-  btn.addEventListener("click", () => handleCalcKey(btn.dataset.value));
+  btn.addEventListener("click", () => {
+    // Si mode 2nd actif et que la touche a une valeur alternative
+    const value = (mode2nd && btn.dataset.alt) ? btn.dataset.alt : btn.dataset.value;
+
+    // Désactiver le mode 2nd après usage (comme sur une vraie calc)
+    if (mode2nd && btn.dataset.alt) {
+      mode2nd = false;
+      btn2nd.classList.remove("active");
+      calcGrid.classList.remove("mode-2nd");
+    }
+
+    handleCalcKey(value);
+  });
 });
 
 // ── Saisie clavier ──
@@ -58,8 +81,8 @@ document.addEventListener("keydown", e => {
 });
 
 /**
- * Traite l'appui sur une touche de la calculatrice.
- * @param {string} value - La valeur associée à la touche
+ * Traite une valeur de touche.
+ * Cas spéciaux : C, ⌫, =, +/-, et toutes les fonctions
  */
 function handleCalcKey(value) {
   switch (value) {
@@ -78,6 +101,17 @@ function handleCalcKey(value) {
     case "=":
       if (!calcExpression.trim()) return;
       evaluateExpression();
+      break;
+
+    // Touche ± : inverse le signe du dernier nombre
+    case "+/-":
+      if (calcExpression === "") return;
+      if (calcExpression.startsWith("-")) {
+        calcExpression = calcExpression.slice(1);
+      } else {
+        calcExpression = "-" + calcExpression;
+      }
+      displayInput.textContent = calcExpression;
       break;
 
     default:
@@ -109,7 +143,7 @@ async function evaluateExpression() {
       const result = formatNumber(data.result);
       displayResult.textContent = result;
       addToHistory(calcExpression, result);
-      calcExpression = String(data.result); // Résultat réutilisable
+      calcExpression = String(data.result);
     }
   } catch {
     displayResult.textContent = "Erreur réseau";
@@ -117,19 +151,12 @@ async function evaluateExpression() {
   }
 }
 
-/**
- * Formate un nombre pour l'affichage (évite la notation exponentielle inutile).
- */
 function formatNumber(n) {
   if (Number.isInteger(n) && Math.abs(n) < 1e15) return String(n);
-  // Si trop petit ou trop grand, notation exponentielle
   if (Math.abs(n) < 1e-7 || Math.abs(n) > 1e12) return n.toExponential(6);
   return parseFloat(n.toPrecision(10)).toString();
 }
 
-/**
- * Ajoute une entrée à l'historique et l'affiche.
- */
 function addToHistory(expr, result) {
   calcHistory.unshift({ expr, result });
   if (calcHistory.length > 20) calcHistory.pop();
@@ -166,7 +193,6 @@ function escapeHtml(str) {
 let matrixSizeA = 2;
 let matrixSizeB = 2;
 
-// ── Construction dynamique des grilles de saisie ──
 const sizeSelectA = document.getElementById("size-a");
 const sizeSelectB = document.getElementById("size-b");
 
@@ -180,11 +206,6 @@ sizeSelectB.addEventListener("change", () => {
   buildMatrixGrid("matrix-b-grid", matrixSizeB);
 });
 
-/**
- * Génère une grille d'inputs pour la saisie d'une matrice n×n.
- * @param {string} containerId - L'id du conteneur
- * @param {number} n - La taille de la matrice
- */
 function buildMatrixGrid(containerId, n) {
   const container = document.getElementById(containerId);
   container.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
@@ -195,7 +216,7 @@ function buildMatrixGrid(containerId, n) {
       const input = document.createElement("input");
       input.type        = "number";
       input.className   = "matrix-cell";
-      input.value       = (i === j) ? "1" : "0"; // Matrice identité par défaut
+      input.value       = (i === j) ? "1" : "0";
       input.dataset.row = i;
       input.dataset.col = j;
       container.appendChild(input);
@@ -203,33 +224,23 @@ function buildMatrixGrid(containerId, n) {
   }
 }
 
-// ── Initialisation ──
 buildMatrixGrid("matrix-a-grid", 2);
 buildMatrixGrid("matrix-b-grid", 2);
 
-/**
- * Lit les valeurs d'une grille matricielle et retourne un tableau 2D.
- */
 function readMatrix(containerId) {
   const container = document.getElementById(containerId);
   const cells = container.querySelectorAll(".matrix-cell");
   const n = Math.sqrt(cells.length);
   const matrix = Array.from({ length: n }, () => Array(n).fill(0));
-
   cells.forEach(cell => {
     matrix[parseInt(cell.dataset.row)][parseInt(cell.dataset.col)] = parseFloat(cell.value) || 0;
   });
-
   return matrix;
 }
 
-/**
- * Envoie une opération matricielle au backend et affiche le résultat.
- */
 async function matrixOperation(op) {
   const matrixA = readMatrix("matrix-a-grid");
   const matrixB = ["add", "multiply"].includes(op) ? readMatrix("matrix-b-grid") : null;
-
   const resultDisplay = document.getElementById("matrix-result");
   resultDisplay.textContent = "calcul en cours…";
 
@@ -239,7 +250,6 @@ async function matrixOperation(op) {
       headers: { "Content-Type": "application/json" },
       body:    JSON.stringify({ operation: op, matrix_a: matrixA, matrix_b: matrixB })
     });
-
     const data = await response.json();
 
     if (data.error) {
@@ -250,7 +260,6 @@ async function matrixOperation(op) {
       if (data.type === "scalar") {
         resultDisplay.textContent = `det(A) = ${data.result}`;
       } else {
-        // Formatage de la matrice résultat en tableau ASCII
         resultDisplay.textContent = formatMatrixDisplay(data.result);
       }
     }
@@ -260,22 +269,16 @@ async function matrixOperation(op) {
   }
 }
 
-/**
- * Formate une matrice 2D en affichage texte aligné.
- */
 function formatMatrixDisplay(matrix) {
-  // Calcul de la largeur max de chaque colonne
   const cols = matrix[0].length;
   const widths = Array.from({ length: cols }, (_, j) =>
     Math.max(...matrix.map(row => String(row[j]).length))
   );
-
   return matrix.map(row =>
     "[ " + row.map((v, j) => String(v).padStart(widths[j])).join("  ") + " ]"
   ).join("\n");
 }
 
-// ── Liaison des boutons d'opérations matricielles ──
 document.querySelectorAll(".matrix-op-btn").forEach(btn => {
   btn.addEventListener("click", () => matrixOperation(btn.dataset.op));
 });
@@ -285,14 +288,10 @@ document.querySelectorAll(".matrix-op-btn").forEach(btn => {
    4. MODULE STATISTIQUES
    ═══════════════════════════════════════════ */
 
-/**
- * Lit la liste de nombres saisis, envoie au backend et affiche les stats.
- */
 async function computeStats() {
   const raw = document.getElementById("stats-input").value.trim();
   if (!raw) return;
 
-  // Accepte : séparateurs espace, virgule, point-virgule, saut de ligne
   const numbers = raw.split(/[\s,;]+/).filter(Boolean).map(Number);
 
   if (numbers.some(isNaN)) {
@@ -310,7 +309,6 @@ async function computeStats() {
       headers: { "Content-Type": "application/json" },
       body:    JSON.stringify({ numbers })
     });
-
     const data = await response.json();
 
     if (data.error) {
@@ -328,32 +326,19 @@ function showStatsError(msg) {
     <div class="stat-item" style="grid-column:span 2; color:var(--red-err)">${msg}</div>`;
 }
 
-/**
- * Affiche les résultats statistiques sous forme de grille.
- */
 function renderStats(stats) {
   const labels = {
-    count:    "N",
-    sum:      "Somme",
-    mean:     "Moyenne",
-    median:   "Médiane",
-    mode:     "Mode",
-    variance: "Variance",
-    stdev:    "Écart-type",
-    min:      "Min",
-    max:      "Max",
-    range:    "Étendue"
+    count: "N", sum: "Somme", mean: "Moyenne", median: "Médiane",
+    mode: "Mode", variance: "Variance", stdev: "Écart-type",
+    min: "Min", max: "Max", range: "Étendue"
   };
-
   const container = document.getElementById("stats-results");
-  container.innerHTML = Object.entries(labels).map(([key, label]) => {
-    const val = stats[key] ?? "—";
-    return `
-      <div class="stat-item">
-        <span class="stat-key">${label}</span>
-        <span class="stat-val">${val}</span>
-      </div>`;
-  }).join("");
+  container.innerHTML = Object.entries(labels).map(([key, label]) => `
+    <div class="stat-item">
+      <span class="stat-key">${label}</span>
+      <span class="stat-val">${stats[key] ?? "—"}</span>
+    </div>`).join("");
 }
 
 document.getElementById("btn-stats-calc").addEventListener("click", computeStats);
+

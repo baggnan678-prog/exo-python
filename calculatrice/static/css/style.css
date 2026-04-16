@@ -168,6 +168,47 @@ header p {
 
 .display-result.error { color: var(--red-err); text-shadow: 0 0 10px #ff444466; }
 
+/* ── Contrôles supérieurs ── */
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+/* ── Bouton 2nd ── */
+.btn-2nd {
+  padding: 5px 14px;
+  border: 1px solid var(--amber-dim);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--amber);
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-2nd.active {
+  background: var(--amber-dim);
+  border-color: var(--amber);
+  box-shadow: 0 0 10px rgba(255,179,0,0.3);
+}
+
+/* ── Labels primaire/secondaire sur les boutons ── */
+.btn-primary  { display: block; }
+.btn-secondary {
+  display: none;
+  font-size: 0.65em;
+  color: var(--amber);
+  margin-top: 2px;
+}
+
+/* Quand mode 2nd actif */
+.mode-2nd .btn-primary  { display: none; }
+.mode-2nd .btn-secondary { display: block; }
+
 /* ── Mode DEG/RAD ── */
 .mode-toggle {
   display: flex;

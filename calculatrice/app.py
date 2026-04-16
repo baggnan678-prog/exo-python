@@ -52,19 +52,46 @@ def safe_eval(expression: str, mode: str = "deg") -> float:
 
     safe_dict = {
         **trig,
+        # Fonctions hyperboliques
+        "sinh":      math.sinh,
+        "cosh":      math.cosh,
+        "tanh":      math.tanh,
+        "asinh":     math.asinh,
+        "acosh":     math.acosh,
+        "atanh":     math.atanh,
+        # Puissances et racines
         "sqrt":      math.sqrt,
-        "log":       math.log10,      # log en base 10
-        "ln":        math.log,        # logarithme naturel
+        "cbrt":      lambda x: math.copysign(abs(x)**(1/3), x),  # Racine cubique
+        "exp":       math.exp,        # e^x
+        "exp2":      lambda x: 2**x,  # 2^x
+        "pow":       math.pow,
+        # Logarithmes
+        "log":       math.log10,      # log base 10
+        "ln":        math.log,        # log naturel
         "log2":      math.log2,
-        "abs":       abs,
+        "logn":      math.log,        # log(x, base) avec 2 arguments
+        # Arrondis
         "ceil":      math.ceil,
         "floor":     math.floor,
+        "round":     round,
+        "trunc":     math.trunc,
+        # Valeurs spéciales
+        "abs":       abs,
+        "sign":      lambda x: math.copysign(1, x),
         "factorial": math.factorial,
-        "exp":       math.exp,
-        "pow":       math.pow,
+        # Constantes
         "pi":        math.pi,
         "e":         math.e,
-        "__builtins__": {},           # Isolation totale
+        "tau":       math.tau,        # 2π
+        "inf":       math.inf,
+        # Conversions angulaires
+        "deg":       math.degrees,    # rad → deg
+        "rad":       math.radians,    # deg → rad
+        # Combinatoire
+        "gcd":       math.gcd,
+        "comb":      math.comb,       # Combinaisons C(n,k)
+        "perm":      math.perm,       # Permutations P(n,k)
+        "__builtins__": {},
     }
 
     # Remplacement syntaxique : ^ -> ** (notation mathématique standard)
@@ -231,6 +258,5 @@ def stats_op():
 # ─────────────────────────────────────────────
 
 if __name__ == "__main__":
-    import webbrowser
-    webbrowser.open("http://127.0.0.1:5000")
+    # debug=True uniquement en développement
     app.run(debug=True, host="0.0.0.0", port=5000)
